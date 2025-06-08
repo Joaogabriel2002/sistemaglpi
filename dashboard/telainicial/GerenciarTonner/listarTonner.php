@@ -23,7 +23,7 @@ $tonner= new Tonner();
 
 
 
-// var_dump ($tonners);
+// var_dump ($tonner);
 if(empty($idFiltro)){
     $tonners = $tonner->listarTonnerPorId2($statusFiltro, $idFiltro);
     }else{
@@ -84,14 +84,14 @@ if(empty($idFiltro)){
     foreach ($tonners as $tonner) {
     ?>
     <tr>
-        <td><?php echo $tonner['tonnerId']; ?></td>
+        <td><?php echo $tonner['solicitacaoId']; ?></td>
         <td><?php echo $tonner['status']; ?></td>
         <td><?php echo $tonner['dtAbertura']; ?></td>
-        <td><?php echo $tonner['modeloTonner']; ?></td>
-        <td><?php echo $tonner['corTonner'];?></td>
+        <td><?php echo $tonner['nome']; ?></td>
+        <td><?php echo $tonner['cor'];?></td>
         <td><?php echo $tonner['autorNome']; ?></td>
         <td><?php echo $tonner['situacao']; ?></td>
-        <td><a href="detalhesTonner.php?id=<?=$tonner['tonnerId']; ?>">Selecionar</a></td>
+        <td><a href="detalhesTonner.php?id=<?=$tonner['solicitacaoId']; ?>">Selecionar</a></td>
     </tr>
     <?php
     }
