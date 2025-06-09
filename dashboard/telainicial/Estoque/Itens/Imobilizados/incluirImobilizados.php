@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                     <label>Nrº NFe</label>               
                     <input type="text" id="nfe" name="nfe" required>
                 </div><br>
-                        <div class="campo-form">
+                <div class="campo-form">
                 <label for="setor">Usuario(se houver):</label>
                 <select id="usuario" name="usuario" required>
                     <option value=""></option>
@@ -113,6 +113,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                     <?php endforeach; ?>
 
                 </select><br><br>
+            </div>
+            <div class="campo-form">
+                <label for="status">Situação:</label>
+                <select id="status" name="status" required>
+                    <option value=""></option>
+                    <option value="ativo">Ativo</option>
+                    <option value="em_manutencao">Em manutenção</option>
+                    <option value="reservado">Reservado</option>
+                    <option value="emprestado">Emprestado</option>
+                    <option value="disponivel">Disponível</option>
+                    <option value="perdido">Perdido</option>
+                    <option value="sucata">Sucata</option>
+                </select>
             </div>
 
                 
