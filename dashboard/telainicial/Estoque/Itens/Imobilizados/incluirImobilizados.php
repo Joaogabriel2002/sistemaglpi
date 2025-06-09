@@ -1,5 +1,6 @@
 <?php
 require_once '..\..\..\..\..\php/Imobilizados.php';
+
 $msg = "";
 
 // if(!isset($_SESSION['usuario_id'])){
@@ -10,6 +11,7 @@ $msg = "";
 
 $imobilizado = new Imobilizados();
 $modelos= $imobilizado->buscarModelos();
+$setor= $imobilizado->buscarSetores();
 
 
 
@@ -61,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
         <h2 class="form-title">Cadastro</h2>
 
         <form class="form" action="cadastroImobilizados.php" method="POST" id="form-estoque">
-            <div class="modeloTonner">
+            <div class="campo-form">
                 <label for="modeloTonner">Modelo:</label>
                 <select id="modelo" name="modelo" required>
                     <option value=""></option>
@@ -77,15 +79,22 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
             <div id="itens-container">
                 <div class="campo-form item-row">
-                    <label>Tipo</label>               
-                    <select name="tipo" id="tipo" required>
-                        <option value=""></option>
-                        <option value="Aparelhos de Redes">Aparelhos de Redes</option>
-                        <option value="Computador">Computador</option>
-                        <option value="Impressora">Impressora</option>
-                        <option value="Notebook">Notebook</option>
-                        <option value="Outros">Outros</option>
-                    </select>
+                    <label>Nrº Patrimônio</label>               
+                    <input type="text" id="patrimonio" name="patrimonio" required>
+                </div>
+
+            <div class="campo-form">
+                <label for="setor">Setor:</label>
+                <select id="setor" name="setor" required>
+                    <option value=""></option>
+                    <?php foreach ($setor as $st): ?>
+                        <option value="<?= htmlspecialchars($st['setor']) ?>">
+                        <?= htmlspecialchars($st['setor']) ?>
+                        </option>
+                    <?php endforeach; ?>
+
+                </select><br><br>
+            </div>
             <button type="submit" class="submit-btn">Cadastrar</button>
         </form>
     </div>
