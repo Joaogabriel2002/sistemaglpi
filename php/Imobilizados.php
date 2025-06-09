@@ -76,6 +76,8 @@ class Imobilizados extends Conexao {
         return $this->status;
     }
 
+
+
     // Listar todos os imobilizados
     public function listarTodos() {
         $sql = "SELECT * FROM imobilizados ORDER BY nome";
@@ -121,6 +123,24 @@ class Imobilizados extends Conexao {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function cadastrarImobilizados(){
+        $sql = "INSERT INTO equipamentos (descricaoEquipamento, tipo) VALUES (:modelo,:tipo)";
+        $stmt= $this->conn->prepare($sql);
+        $stmt->bindParam(':modelo',$this->modelo);
+        $stmt->bindParam(':tipo',$this->tipo);
+         if ($stmt->execute()) {
+            return $this->conn->lastInsertId();
+        }
+        return false;
+    }
+
+    public function buscarModelos(){
+        $sql="SELECT * FROM equipamentos";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

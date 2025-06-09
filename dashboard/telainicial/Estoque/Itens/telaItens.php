@@ -32,7 +32,7 @@
             <h2 class="title-right">Itens/Estoque</h2>
             <div class="botoes">
                 <a href="listaEstoque.php" class="opcoes alongado">Visualizar Estoque</a>
-                <a href="cadastrarFornecedor.php" class="opcoes alongado">Cadastrar Fornecedores</a>
+                <a href="Imobilizados\imobilizados.php" class="opcoes alongado">Imobilizados</a>
                 
                 <a href="..\telaEstoque.php" class="opcoes sair alongado">Voltar</a>
             </div>
