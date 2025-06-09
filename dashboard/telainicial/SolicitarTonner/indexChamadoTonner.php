@@ -76,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <select id="modeloTonner" name="modeloTonner" required>
                     <option value=""></option>
                     <?php foreach ($impressorasAtivas as $impressora): ?>
-                        <option value="<?= htmlspecialchars($impressora['id']) ?>">
-                            <?= htmlspecialchars($impressora['modelo']) ?>
+                        <option value="<?= htmlspecialchars($impressora['idEquipamento']) ?>">
+                            <?= htmlspecialchars($impressora['descricaoEquipamento']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

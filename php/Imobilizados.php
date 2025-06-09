@@ -88,7 +88,7 @@ class Imobilizados extends Conexao {
 
     // Listar só impressoras ativas
     public function listarImpressorasAtivas() {
-        $sql = "SELECT * FROM imobilizados WHERE tipo = 'Impressora' AND status = 'Ativo' ORDER BY nome";
+        $sql = "SELECT * FROM equipamentos WHERE tipo = 'Impressora' ORDER BY descricaoEquipamento";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

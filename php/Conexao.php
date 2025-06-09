@@ -2,7 +2,7 @@
 
     class Conexao{
 
-        private $dbname = "glpi";
+        private $dbname = "glpi_teste";
         private $user = "usuario";
         private $password ="senha";
         private $host = "localhost";
