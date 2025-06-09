@@ -5,7 +5,7 @@
         private $dbname = "glpi_teste";
         private $user = "usuario";
         private $password ="senha";
-        private $host = "localhost";
+        private $host = "172.20.90.69";
         protected $conn;
         
         
