@@ -29,7 +29,7 @@
         </div>
 
         <div class="right-section">
-            <h2 class="title-right">Itens/Estoque</h2>
+            <h2 class="title-right">Imobilizados/Estoque</h2>
             <div class="botoes">
                 <a href="listaEstoque.php" class="opcoes alongado">Visualizar Estoque</a>
                 <a href="Imobilizados\imobilizados.php" class="opcoes alongado">Imobilizados</a>

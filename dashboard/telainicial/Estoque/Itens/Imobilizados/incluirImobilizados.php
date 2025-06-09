@@ -1,6 +1,6 @@
 <?php
 require_once '..\..\..\..\..\php/Imobilizados.php';
-
+require_once '..\..\..\..\..\php/Usuario.php';
 $msg = "";
 
 // if(!isset($_SESSION['usuario_id'])){
@@ -10,6 +10,8 @@ $msg = "";
 
 
 $imobilizado = new Imobilizados();
+$usuario = new Usuario();
+$usuarios = $usuario->listarUsuarios();
 $modelos= $imobilizado->buscarModelos();
 $setor= $imobilizado->buscarSetores();
 
@@ -95,7 +97,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
                 </select><br><br>
             </div>
-            <button type="submit" class="submit-btn">Cadastrar</button>
+
+            <div class="campo-form item-row">
+                    <label>Nrº NFe</label>               
+                    <input type="text" id="nfe" name="nfe" required>
+                </div><br>
+                        <div class="campo-form">
+                <label for="setor">Usuario(se houver):</label>
+                <select id="usuario" name="usuario" required>
+                    <option value=""></option>
+                    <?php foreach ($usuarios as $user): ?>
+                        <option value="<?= htmlspecialchars($user['id']) ?>">
+                        <?= htmlspecialchars($user['nome']) ?>
+                        </option>
+                    <?php endforeach; ?>
+
+                </select><br><br>
+            </div>
+
+                
+            <br><button type="submit" class="submit-btn">Cadastrar</button>
         </form>
     </div>
 </div>

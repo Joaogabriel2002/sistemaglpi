@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
         <?php if ($msg) : ?>
             <div class="mensagem-feedback"><?= htmlspecialchars($msg) ?></div>
         <?php endif; ?>
-        <h2 class="form-title">Cadastro</h2>
+        <h2 class="form-title">Cadastro de Modelos Imobilizados</h2>
 
         <form class="form" action="cadastroImobilizados.php" method="POST" id="form-estoque">
             <div class="campo-form">
