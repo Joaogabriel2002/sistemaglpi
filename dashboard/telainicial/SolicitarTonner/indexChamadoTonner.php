@@ -25,12 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $impressoraId = isset($_POST['modeloTonner']) ? $_POST['modeloTonner'] : '';
     $tonnerSolicitacao->setImpressoraId($impressoraId);
 
-    // Opcional: Se quiser guardar o modelo (nome) da impressora junto
-    // Você pode buscar no array $impressorasAtivas o modelo pelo ID
+
     $modeloNome = '';
     foreach ($impressorasAtivas as $imp) {
-        if ($imp['id'] == $impressoraId) {
-            $modeloNome = $imp['modelo'];
+        if ($imp['idEquipamento'] == $impressoraId) {
+            $modeloNome = $imp['tipo'];
             break;
         }
     }

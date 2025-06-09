@@ -97,12 +97,10 @@ class Imobilizados extends Conexao {
     // Cadastrar imobilizado
     public function cadastrar() {
         $sql = "INSERT INTO imobilizados 
-            (nome, tipo, patrimonio, modelo, localizacao, nota_fiscal, usuario_id, status) 
+            ( patrimonio, modelo, localizacao, nota_fiscal, usuario_id, status) 
             VALUES 
-            (:nome, :tipo, :patrimonio, :modelo, :localizacao, :nota_fiscal, :usuario_id, :status)";
+            (:patrimonio, :modelo, :localizacao, :nota_fiscal, :usuario_id, :status)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':nome', $this->nome);
-        $stmt->bindParam(':tipo', $this->tipo);
         $stmt->bindParam(':patrimonio', $this->patrimonio);
         $stmt->bindParam(':modelo', $this->modelo);
         $stmt->bindParam(':localizacao', $this->localizacao);

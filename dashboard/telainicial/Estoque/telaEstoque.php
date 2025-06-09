@@ -33,7 +33,7 @@
             <div class="botoes">
                 <a href="incluirEstoque.php" class="opcoes alongado">Incluir Estoque</a>
                 <a href="baixarEstoque.php" class="opcoes alongado">Baixar Estoque</a>
-                <a href="Itens/telaItens.php" class="opcoes alongado">Itens/Estoque</a>
+                <a href="Itens/telaItens.php" class="opcoes alongado">Imobilizados/Estoque</a>
                 <a href="Fornecedores/telaFornecedores.php" class="opcoes alongado">Fornecedores</a>
                 
                 <a href="..\..\..\php/validacao.php" class="opcoes sair alongado">Voltar</a>

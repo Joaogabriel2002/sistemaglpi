@@ -1,6 +1,6 @@
 <?php
 require_once '..\..\..\..\..\php/Imobilizados.php';
-
+require_once '..\..\..\..\..\php/Usuario.php';
 $msg = "";
 
 // if(!isset($_SESSION['usuario_id'])){
@@ -10,6 +10,8 @@ $msg = "";
 
 
 $imobilizado = new Imobilizados();
+$usuario = new Usuario();
+$usuarios = $usuario->listarUsuarios();
 $modelos= $imobilizado->buscarModelos();
 $setor= $imobilizado->buscarSetores();
 
@@ -18,9 +20,15 @@ $setor= $imobilizado->buscarSetores();
 if ($_SERVER['REQUEST_METHOD'] === "POST"){
     $imobilizado = new Imobilizados;
     $imobilizado->setModelo($_POST['modelo']);
-    $imobilizado->setTipo($_POST['tipo']);
+    $imobilizado->setPatrimonio($_POST['patrimonio']);
+    $imobilizado->setModelo($_POST['modelo']);
+    $imobilizado->setLocalizacao($_POST['localizacao']);
+    $imobilizado->setNotaFiscal($_POST['nota_fiscal']);
+    $imobilizado->setUsuarioId($_POST['usuario']);
+    $imobilizado->setStatus($_POST['status']);
 
-    $imobilizado->cadastrarImobilizados();
+
+    $imobilizado->cadastrar();
     $erros = 0;
     if ($erros > 0) {
         $msg = "Erro ao cadastrar $erros item(s).";
@@ -62,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
         <?php endif; ?>
         <h2 class="form-title">Cadastro</h2>
 
-        <form class="form" action="cadastroImobilizados.php" method="POST" id="form-estoque">
+        <form class="form" action="incluirImobilizados.php" method="POST" id="form-estoque">
             <div class="campo-form">
                 <label for="modeloTonner">Modelo:</label>
                 <select id="modelo" name="modelo" required>
@@ -84,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                 </div>
 
             <div class="campo-form">
-                <label for="setor">Setor:</label>
-                <select id="setor" name="setor" required>
+                <label for="localizacao">Setor:</label>
+                <select id="localizacao" name="localizacao" required>
                     <option value=""></option>
                     <?php foreach ($setor as $st): ?>
                         <option value="<?= htmlspecialchars($st['setor']) ?>">
@@ -95,7 +103,39 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
                 </select><br><br>
             </div>
-            <button type="submit" class="submit-btn">Cadastrar</button>
+
+            <div class="campo-form item-row">
+                    <label>Nrº NFe</label>               
+                    <input type="text" id="nota_fiscal" name="nota_fiscal" required>
+                </div><br>
+                <div class="campo-form">
+                <label for="setor">Usuario(se houver):</label>
+                <select id="usuario" name="usuario" required>
+                    <option value=""></option>
+                    <?php foreach ($usuarios as $user): ?>
+                        <option value="<?= htmlspecialchars($user['id']) ?>">
+                        <?= htmlspecialchars($user['nome']) ?>
+                        </option>
+                    <?php endforeach; ?>
+
+                </select><br><br>
+            </div>
+            <div class="campo-form">
+                <label for="status">Situação:</label>
+                <select id="status" name="status" required>
+                    <option value=""></option>
+                    <option value="ativo">Ativo</option>
+                    <option value="em_manutencao">Em manutenção</option>
+                    <option value="reservado">Reservado</option>
+                    <option value="emprestado">Emprestado</option>
+                    <option value="disponivel">Disponível</option>
+                    <option value="perdido">Perdido</option>
+                    <option value="sucata">Sucata</option>
+                </select>
+            </div>
+
+                
+            <br><button type="submit" class="submit-btn">Cadastrar</button>
         </form>
     </div>
 </div>
