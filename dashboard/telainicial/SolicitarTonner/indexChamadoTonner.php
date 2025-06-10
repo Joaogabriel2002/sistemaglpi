@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once '..\..\..\php\Tonner.php';  
+require_once '..\..\..\php\Tonner.php';
 require_once '..\..\..\php\Imobilizados.php'; // Inclui a classe Imobilizados
 
-if(!isset($_SESSION['usuario_id'])){
+if (!isset($_SESSION['usuario_id'])) {
     header("Location: ..\..\index.php");
     exit();
 }
@@ -14,13 +14,13 @@ $impressorasAtivas = $imobilizados->listarImpressorasAtivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tonnerSolicitacao = new Tonner();
-    
+
     $tonnerSolicitacao->setStatus($_POST['status']);
     $tonnerSolicitacao->setAutorId($_SESSION['usuario_id']);
     $tonnerSolicitacao->setAutorNome($_SESSION['usuario']);
     $tonnerSolicitacao->setAutorEmail($_SESSION['email_usuario']);
     $tonnerSolicitacao->setAutorSetor($_SESSION['setor']);
-    
+
     // Recebe o ID da impressora (valor do select)
     $impressoraId = isset($_POST['modeloTonner']) ? $_POST['modeloTonner'] : '';
     $tonnerSolicitacao->setImpressoraId($impressoraId);
@@ -51,60 +51,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     
-    <link rel="stylesheet" href="/gerenciadorti/css/tonner.css" />
     <script src="indexChamadoTonner.js" defer></script>
     <title>Solicitar Tonner</title>
-    <link rel="icon" href="../img/chesiquimica-logo-png.png" type="image/png" />
+    <link rel="icon" href="../../../img/chesiquimica-logo-png.png" type="image/png" />
+    <link rel="stylesheet" href="../../../css/base.css" />
+    <link rel="stylesheet" href="../../../css/tonner.css" />
+   
 </head>
 
 <body>
+
     <div class="container">
-        <h2>Solicitação de Tonner</h2>
-        <form id="tonner" method="POST">
-            <input type="hidden" name="status" value="Aberto" />
-            <input type="hidden" id="corTonnerHidden" name="corTonner" value="" />
+        <div class="left-section">
+            <img src="../../../img/chesiquimica-logo-png.png" class="brand-logo" alt="Logo Chesiquímica" class="logo" />
+            <img src="../../../img/chesiquimica-letreiro-png.png" class="brand-name" alt="Logo Chesiquímica"
+                class="logo" />
+        </div>
+        <div class="right-section">
+            <h2>Solicitação de Tonner</h2>
+            <form id="tonner" method="POST">
+                <input type="hidden" name="status" value="Aberto" />
+                <input type="hidden" id="corTonnerHidden" name="corTonner" value="" />
 
-            <div class="modeloTonner">
-                <label for="modeloTonner">Modelo da Impressora</label>
-                <select id="modeloTonner" name="modeloTonner" required>
-                    <option value=""></option>
-                    <?php foreach ($impressorasAtivas as $impressora): ?>
-                        <option value="<?= htmlspecialchars($impressora['idEquipamento']) ?>">
-                            <?= htmlspecialchars($impressora['descricaoEquipamento']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="modeloTonner">
+                    <label for="modeloTonner">Modelo da Impressora</label>
+                    <select id="modeloTonner" name="modeloTonner" required>
+                        <option value=""></option>
+                        <?php foreach ($impressorasAtivas as $impressora): ?>
+                            <option value="<?= htmlspecialchars($impressora['idEquipamento']) ?>">
+                                <?= htmlspecialchars($impressora['descricaoEquipamento']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div id="coresContainer" style="display:none; margin-top: 10px;">
+                    <h3>Selecione a cor de tinta:</h3>
+                    <input type="radio" id="preto" name="corTonner" value="preto" />
+                    <label for="preto">Preto</label><br />
+
+                    <input type="radio" id="azul" name="corTonner" value="azul" />
+                    <label for="azul">Azul</label><br />
+
+                    <input type="radio" id="amarelo" name="corTonner" value="amarelo" />
+                    <label for="amarelo">Amarelo</label><br />
+
+                    <input type="radio" id="vermelho" name="corTonner" value="vermelho" />
+                    <label for="vermelho">Vermelho</label><br />
+                </div>
+<br>
+                <div class="button-enviar">
+                    <button id="enviar" type="submit">Solicitar</button>
+                </div>
+            </form>
+
+            <div class="button-voltar">
+                <a href="..\..\..\php\validacao.php">Voltar</a>
             </div>
-
-            <div id="coresContainer" style="display:none; margin-top: 10px;">
-                <h3>Selecione a cor de tinta:</h3>
-                <input type="radio" id="preto" name="corTonner" value="preto" />
-                <label for="preto">Preto</label><br />
-
-                <input type="radio" id="azul" name="corTonner" value="azul" />
-                <label for="azul">Azul</label><br />
-
-                <input type="radio" id="amarelo" name="corTonner" value="amarelo" />
-                <label for="amarelo">Amarelo</label><br />
-
-                <input type="radio" id="vermelho" name="corTonner" value="vermelho" />
-                <label for="vermelho">Vermelho</label><br />
-            </div>
-
-            <div class="button-enviar">
-                <button id="enviar" type="submit">Solicitar</button>
-            </div>
-        </form>
-
-        <div class="button-voltar">
-            <a href="..\..\..\php\validacao.php">Voltar</a>
         </div>
     </div>
+
 </body>
+
 </html>

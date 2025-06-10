@@ -52,7 +52,7 @@ $detalhesImobilizado = $imobilizado->listarImobilizadoPorId($idAtual);
     </div> -->
 
     <div class="right-section">
-        <a href="imobilizados.php" class="back-link">Voltar</a>
+        <a href="listaimobilizados.php" class="back-link">Voltar</a>
         <h2 class="form-title">Editar Imobilizado</h2>
 
         <form class="form" method="post">

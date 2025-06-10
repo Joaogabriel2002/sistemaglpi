@@ -113,8 +113,8 @@ class Estoque extends Conexao {
 }
 
 
-    public fucntion listarMovimentacoes(){
+    /*public fucntion listarMovimentacoes(){
         $sql = "SELECT * FROM estoque";
         
-    }
+    }*/
 }
