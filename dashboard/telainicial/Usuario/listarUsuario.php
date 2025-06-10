@@ -44,7 +44,7 @@ $usuario = $usuario->listarUsuarios();
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Setor</th>
-                <th>Excluir</th>
+                <th>Ações</th>
             </tr>
 
             <?php foreach ($usuario as $usuarios) { ?>

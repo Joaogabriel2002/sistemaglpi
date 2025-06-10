@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                         <option value="Notebook">Notebook</option>
                         <option value="Outros">Outros</option>
                     </select>
+                    <br><br>
             <button type="submit" class="submit-btn">Cadastrar</button>
         </form>
     </div>

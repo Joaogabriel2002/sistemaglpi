@@ -124,6 +124,7 @@ class Estoque extends Conexao {
 }
 
 
+<<<<<<< HEAD
     public function listarMovimentacoes(){
     $sql = "SELECT
                 e.id,
@@ -148,4 +149,10 @@ class Estoque extends Conexao {
 
 
 
+=======
+    /*public fucntion listarMovimentacoes(){
+        $sql = "SELECT * FROM estoque";
+        
+    }*/
+>>>>>>> e5d1daa5155ebccfc5aada930d94b8b8ef4c6290
 }

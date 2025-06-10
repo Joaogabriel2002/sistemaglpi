@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php if (!empty($login_error_message)): ?>
                 <p class="error-message"><?php echo $login_error_message; ?></p>
             <?php endif; ?>
-            <h1 class="login-title">LOGIN ddddd</h1>
+            <h1 class="login-title">LOGIN </h1>
 
             <form class="login-form" action="index.php" method="POST">
                 <div class="form-group">
