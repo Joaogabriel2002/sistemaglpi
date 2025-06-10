@@ -4,7 +4,8 @@ require_once '..\..\..\..\..\..\php\Itens.php';
 require_once '..\..\..\..\..\..\php\Fornecedor.php';
 require_once '..\..\..\..\..\..\php\Estoque.php';
 
-
+session_start();
+echo $_SESSION['usuario_id'];
 $msg = "";
 
 
@@ -40,25 +41,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $itens = $_POST['item'];
     $quantidades = $_POST['quantidade'];
     $tipo_movimentacao = "ENTRADA";
+    $motivo = "Entrada de Material";
+    $usuario = $_SESSION['usuario_id'];
 
     $estoque = new Estoque();
     $erros = 0;
 
     foreach ($itens as $index => $item) {
-        if (!empty($item) && is_numeric($quantidades[$index]) && $quantidades[$index] > 0) {
-            $estoque->setItemId($item);
-            $estoque->setNotaFiscal($notaFiscal);
-            $estoque->setFornecedor($fornecedor);
-            $estoque->setQuantidade($quantidades[$index]);
-            $estoque->setTipo_Movimentacao($tipo_movimentacao);
+    if (!empty($item) && is_numeric($quantidades[$index]) && $quantidades[$index] > 0) {
+        $estoque->setItemId($item);
+        $estoque->setNotaFiscal($notaFiscal);
+        $estoque->setFornecedor($fornecedor);
+        $estoque->setQuantidade($quantidades[$index]);
+        $estoque->setTipo_Movimentacao($tipo_movimentacao);
+        $estoque->setMotivo($motivo);        // <-- adicionado aqui
+        $estoque->setUsuarioId($usuario);    // <-- adicionado aqui
 
-            $ultimoId = $estoque->incluirEstoque();
+        $ultimoId = $estoque->incluirEstoque();
 
-            if (!$ultimoId) {
-                $erros++;
-            }
+        if (!$ultimoId) {
+            $erros++;
         }
     }
+}
 
     if ($erros > 0) {
         $msg = "Erro ao cadastrar $erros item(s).";

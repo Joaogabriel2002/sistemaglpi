@@ -10,6 +10,7 @@ class Estoque extends Conexao {
     private $tipo_movimentacao;
     private $data_movimentacao;
     private $motivo;
+    private $usuarioId;
 
     public function setId($id){
         $this->id = $id;
@@ -75,27 +76,37 @@ class Estoque extends Conexao {
         return $this->motivo;
     }
 
-
-    public function incluirEstoque(){
-        $sql= "INSERT INTO estoque (item_id, nota_fiscal, fornecedor, quantidade, tipo_movimentacao,motivo)
-               VALUES (:item_id, :nota_fiscal, :fornecedor, :quantidade, :tipo_movimentacao,:motivo)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':item_id', $this->item_id);
-        $stmt->bindParam(':nota_fiscal', $this->nota_fiscal);
-        $stmt->bindParam(':fornecedor', $this->fornecedor);
-        $stmt->bindParam(':quantidade', $this->quantidade);
-        $stmt->bindParam(':tipo_movimentacao', $this->tipo_movimentacao);
-        $stmt->bindParam(':motivo', $this->motivo);
-
-        $success = $stmt->execute();
-
-        if ($success) {
-            // Retorna o último ID inserido
-            return $this->conn->lastInsertId();
-        } else {
-            return false;
-        }
+    public function setUsuarioId($usuarioId){
+        $this->usuarioId = $usuarioId;
     }
+
+    public function getUsuarioId(){
+        return $this->usuarioId;
+    }
+
+
+   public function incluirEstoque(){
+    $sql = "INSERT INTO estoque (item_id, nota_fiscal, fornecedor, quantidade, tipo_movimentacao, motivo, usuario_id)
+            VALUES (:item_id, :nota_fiscal, :fornecedor, :quantidade, :tipo_movimentacao, :motivo, :usuario_id)";
+    
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':item_id', $this->item_id);
+    $stmt->bindParam(':nota_fiscal', $this->nota_fiscal);
+    $stmt->bindParam(':fornecedor', $this->fornecedor);
+    $stmt->bindParam(':quantidade', $this->quantidade);
+    $stmt->bindParam(':tipo_movimentacao', $this->tipo_movimentacao);
+    $stmt->bindParam(':motivo', $this->motivo);
+    $stmt->bindParam(':usuario_id', $this->usuarioId);
+
+    $success = $stmt->execute();
+
+    if ($success) {
+        return $this->conn->lastInsertId();
+    } else {
+        return false;
+    }
+}
+
 
     //para nao deixar
     public function consultarSaldo($item_id) {
@@ -113,8 +124,28 @@ class Estoque extends Conexao {
 }
 
 
-    public fucntion listarMovimentacoes(){
-        $sql = "SELECT * FROM estoque";
-        
-    }
+    public function listarMovimentacoes(){
+    $sql = "SELECT
+                e.id,
+                e.nota_fiscal,
+                e.fornecedor,
+                e.quantidade,
+                e.tipo_movimentacao,
+                e.data_movimentacao,
+                e.motivo,
+                u.nome AS usuario,     -- nome do usuário, não o id
+                i.nome AS nomeItem,
+                e.item_id              -- se quiser manter o id do item também
+            FROM estoque e
+            LEFT JOIN usuarios u ON e.usuario_id = u.id
+            LEFT JOIN itens i ON e.item_id = i.id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+
 }
