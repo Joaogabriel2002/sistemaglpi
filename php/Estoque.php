@@ -9,6 +9,7 @@ class Estoque extends Conexao {
     private $quantidade;
     private $tipo_movimentacao;
     private $data_movimentacao;
+    private $motivo;
 
     public function setId($id){
         $this->id = $id;
@@ -66,15 +67,25 @@ class Estoque extends Conexao {
         return $this->data_movimentacao;
     }
 
+     public function setMotivo($motivo){
+        $this->motivo = $motivo;
+    }
+
+    public function getMotivo(){
+        return $this->motivo;
+    }
+
+
     public function incluirEstoque(){
-        $sql= "INSERT INTO estoque (item_id, nota_fiscal, fornecedor, quantidade, tipo_movimentacao)
-               VALUES (:item_id, :nota_fiscal, :fornecedor, :quantidade, :tipo_movimentacao)";
+        $sql= "INSERT INTO estoque (item_id, nota_fiscal, fornecedor, quantidade, tipo_movimentacao,motivo)
+               VALUES (:item_id, :nota_fiscal, :fornecedor, :quantidade, :tipo_movimentacao,:motivo)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':item_id', $this->item_id);
         $stmt->bindParam(':nota_fiscal', $this->nota_fiscal);
         $stmt->bindParam(':fornecedor', $this->fornecedor);
         $stmt->bindParam(':quantidade', $this->quantidade);
         $stmt->bindParam(':tipo_movimentacao', $this->tipo_movimentacao);
+        $stmt->bindParam(':motivo', $this->motivo);
 
         $success = $stmt->execute();
 

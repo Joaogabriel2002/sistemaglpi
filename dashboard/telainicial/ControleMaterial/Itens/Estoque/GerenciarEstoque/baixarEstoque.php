@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $itens = $_POST['item'] ?? [];
     $quantidades = $_POST['quantidade'] ?? [];
     $tipo_movimentacao = "SAIDA";
+    $motivo= $_POST['motivo'] ?? [];
 
     $estoque = new Estoque();
     $erros = 0;
@@ -65,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $estoque->setFornecedor($fornecedor);
         $estoque->setQuantidade($quantidades[$index]);
         $estoque->setTipo_Movimentacao($tipo_movimentacao);
+        $estoque->setMotivo($motivo);
 
         $ultimoId = $estoque->incluirEstoque();
 
@@ -125,6 +127,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
                 <input type="hidden" name="tipo_movimentacao" value="SAIDA" />
+
+            <div id="itens-container">
+                <div class="campo-form item-row">
+                <label for="motivo">Motivo da Baixa:</label>
+                <select name="motivo" id="motivo">
+                    <option value="Perda">Perda</option>
+                    <option value="Baixa Manual">Baixa Manual</option>
+                </select>
+            </div>
+            </div>
 
                 <button type="submit" class="submit-btn">Cadastrar</button>
             </form>
