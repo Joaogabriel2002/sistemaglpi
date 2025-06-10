@@ -36,7 +36,7 @@
                 <a href="listaEstoque.php" class="opcoes alongado">Visualizar Estoque</a>
                 <a href="GerenciarEstoque\MovimentacaoEstoque.php" class="opcoes alongado">Movimentação de Estoque</a>
                 
-                <a href="..\telaItens.php" class="opcoes sair alongado">Voltar</a>
+                <a href="..\..\GerenciamentoEstoque.php" class="opcoes sair alongado">Voltar</a>
             </div>
         </div>
     </div>

@@ -1,8 +1,7 @@
 <?php
-require_once 'C:\xampp\htdocs\glpi\php\Estoque.php';
-require_once 'C:\xampp\htdocs\glpi\php\Itens.php';
-require_once 'C:\xampp\htdocs\glpi\php\Fornecedor.php';
-
+require_once '..\..\..\..\..\..\php\Itens.php';
+require_once '..\..\..\..\..\..\php\Fornecedor.php';
+require_once '..\..\..\..\..\..\php\Estoque.php';
 $msg = "";
 
 // Buscar itens do banco
@@ -92,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastro - ChesiQuímica</title>
 
-    <link rel="stylesheet" href="../../../css/incluirEstoque.css" />
+    <link rel="stylesheet" href="../../../../../../css/incluirEstoque.css" />
     <link rel="icon" href="../img/chesiquimica-logo-png.png" type="image/png" />
 </head>
 
@@ -106,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="right-section">
-            <a href="telaEstoque.php" class="back-link">Voltar</a>
+            <a href="MovimentacaoEstoque.php" class="back-link">Voltar</a>
             <?php if ($msg) : ?>
                 <div class="mensagem-feedback"><?= htmlspecialchars($msg) ?></div>
             <?php endif; ?>

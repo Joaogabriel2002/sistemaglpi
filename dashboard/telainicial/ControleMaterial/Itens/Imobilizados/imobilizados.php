@@ -32,7 +32,7 @@
             <h2 class="title-right">Imobilizados:</h2>
             <div class="botoes">
                 <a href="incluirImobilizados.php" class="opcoes alongado">Adicionar Imobilizados</a>
-                <a href="cadastroImobilizados.php" class="opcoes alongado">Cadastrar Imobilizados</a>
+                <a href="cadastroImobilizados.php" class="opcoes alongado">Cadastrar Equipamentos</a>
                 <a href="listaImobilizados.php" class="opcoes alongado">Visualizar Imobilizados</a>
                 
                 <a href="..\..\GerenciamentoEstoque.php" class="opcoes sair alongado">Voltar</a>

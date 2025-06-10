@@ -1,15 +1,17 @@
 <?php
-require_once 'C:\xampp\htdocs\glpi\php\Estoque.php';
-require_once 'C:\xampp\htdocs\glpi\php\Itens.php';
-require_once 'C:\xampp\htdocs\glpi\php\Fornecedor.php';
+
+require_once '..\..\..\..\..\..\php\Itens.php';
+require_once '..\..\..\..\..\..\php\Fornecedor.php';
+require_once '..\..\..\..\..\..\php\Estoque.php';
+
 
 $msg = "";
 
 
 $itensObj = new Itens();
-$listaItens = $itensObj->listarItens();
+$listaItens = $itensObj->listarItens2();
 
-
+// Buscar fornecedores do banco
 $fornecedorObj = new Fornecedor();
 $listaFornecedores = $fornecedorObj->listarFornecedores();
 
@@ -74,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastro - ChesiQuímica</title>
     <script src="scriptEstoque.js"></script>
-    <link rel="stylesheet" href="../../../css/incluirEstoque.css" />
+    <link rel="stylesheet" href="../../../../../../css/incluirEstoque.css" />
 </head>
 
 <body>
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 
     <div class="right-section">
-        <a href="telaEstoque.php" class="back-link">Voltar</a>
+        <a href="MovimentacaoEstoque.php" class="back-link">Voltar</a>
         <?php if ($msg) : ?>
             <div class="mensagem-feedback"><?= htmlspecialchars($msg) ?></div>
         <?php endif; ?>

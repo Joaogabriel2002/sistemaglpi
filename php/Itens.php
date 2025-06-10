@@ -32,14 +32,25 @@ class Itens extends Conexao {
 
 
     public function listarItens() {
+        $sql = "SELECT * FROM itens ORDER by nome";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+             return $resultados;
+        }
+
+        public function listarItens2() {
         $sql = "SELECT * FROM itens";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         
-             $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
              return $resultados;
         }
+    
     
     public function cadastrarItens(){
         $sql = "INSERT INTO itens (nome,tipo) VALUES (:nome,:tipo)";
