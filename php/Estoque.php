@@ -112,4 +112,9 @@ class Estoque extends Conexao {
     return $resultado ? $resultado['saldo'] : 0;
 }
 
+
+    public fucntion listarMovimentacoes(){
+        $sql = "SELECT * FROM estoque";
+        
+    }
 }

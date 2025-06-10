@@ -29,7 +29,7 @@
         </div>
 
         <div class="right-section">
-            <h2 class="title-right">Gerenciamento de Estoque</h2>
+            <h2 class="title-right">Controle de Material:</h2>
             <div class="botoes">
                 <!-- <a href="incluirEstoque.php" class="opcoes alongado">Incluir Estoque</a>
                 <a href="baixarEstoque.php" class="opcoes alongado">Baixar Estoque</a> -->

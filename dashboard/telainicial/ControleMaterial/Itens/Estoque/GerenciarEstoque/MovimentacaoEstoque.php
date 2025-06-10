@@ -34,7 +34,7 @@
                 <!-- <a href="incluirImobilizados.php" class="opcoes alongado">Adicionar Imobilizados</a> -->
                 <a href="incluirEstoque.php" class="opcoes alongado">Incluir Item</a>
                 <a href="baixarEstoque.php" class="opcoes alongado">Baixar Item</a>
-                <a href="" class="opcoes alongado">Visualizar Movimentações</a>
+                <a href="visualizarMovimentacao.php" class="opcoes alongado">Visualizar Movimentações</a>
                 
                 <a href="..\estoque.php" class="opcoes sair alongado">Voltar</a>
             </div>
