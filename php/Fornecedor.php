@@ -58,7 +58,7 @@ class Fornecedor extends Conexao {
     }
 
     public function listarFornecedores() {
-        $sql = "SELECT * FROM fornecedor ORDER BY nome";
+        $sql = "SELECT * FROM fornecedor";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 

@@ -35,7 +35,7 @@
                 <a href="cadastroImobilizados.php" class="opcoes alongado">Cadastrar Imobilizados</a>
                 <a href="listaImobilizados.php" class="opcoes alongado">Visualizar Imobilizados</a>
                 
-                <a href="..\telaItens.php" class="opcoes sair alongado">Voltar</a>
+                <a href="..\..\GerenciamentoEstoque.php" class="opcoes sair alongado">Voltar</a>
             </div>
         </div>
     </div>

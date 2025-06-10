@@ -5,11 +5,11 @@ require_once 'C:\xampp\htdocs\glpi\php\Fornecedor.php';
 
 $msg = "";
 
-// Buscar itens do banco
+
 $itensObj = new Itens();
 $listaItens = $itensObj->listarItens();
 
-// Buscar fornecedores do banco
+
 $fornecedorObj = new Fornecedor();
 $listaFornecedores = $fornecedorObj->listarFornecedores();
 
