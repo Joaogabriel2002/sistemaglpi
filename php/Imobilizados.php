@@ -156,7 +156,8 @@ class Imobilizados extends Conexao {
                 i.localizacao,
                 i.nota_fiscal,
                 i.status,
-                e.descricaoEquipamento AS modelo,
+                i.modelo AS tipo,         -- modelo direto da tabela imobilizados
+                e.descricaoEquipamento AS modelo,  -- modelo da tabela equipamentos
                 u.nome AS usuario
             FROM imobilizados i
             LEFT JOIN equipamentos e ON i.modelo_id = e.idEquipamento
@@ -166,6 +167,33 @@ class Imobilizados extends Conexao {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function listarImobilizadoPorId($id) {
+    $sql = "SELECT 
+                i.id,
+                i.patrimonio,
+                i.localizacao,
+                i.nota_fiscal,
+                i.status,
+                i.modelo_id,
+                i.usuario_id,
+                i.modelo AS tipo,           -- modelo direto da tabela imobilizados
+                e.descricaoEquipamento AS modelo,
+                u.nome AS usuario
+            FROM imobilizados i
+            INNER JOIN equipamentos e ON i.modelo_id = e.idEquipamento
+            INNER JOIN usuarios u ON i.usuario_id = u.id
+            WHERE i.id = :id
+            LIMIT 1";
+    
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+
+
 
 
 }

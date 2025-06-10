@@ -29,7 +29,7 @@ $imobilizado = $imobilizados->listarImobilizados();
     <table border="1">
     <tr>
         <th>Patrimônio</th>
-        <th>Modelo</th>
+        <th>Tipo</th>
         <th>Status</th>
         <th></th>
     </tr>
@@ -38,8 +38,9 @@ $imobilizado = $imobilizados->listarImobilizados();
         <tr>
             <td><?= htmlspecialchars($imb['patrimonio']) ?></td>
             <td><?= htmlspecialchars($imb['modelo']) ?></td>
+            <td><?= htmlspecialchars($imb['tipo']) ?></td>
             <td><?= htmlspecialchars($imb['status']) ?></td>
-            <td>Selecionar</td>
+            <td><a href="detalhesImobilizados.php?id=<?= $imb['id']; ?>">&#9998;</a></td>
         </tr>
     <?php } ?>
 </table>
