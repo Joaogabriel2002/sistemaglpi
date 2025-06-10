@@ -19,14 +19,13 @@ $setor= $imobilizado->buscarSetores();
 
 if ($_SERVER['REQUEST_METHOD'] === "POST"){
     $imobilizado = new Imobilizados;
-    $imobilizado->setModelo($_POST['modelo']);
+    $imobilizado->setModelo($_POST['modelo']);        // modelo_id no banco
     $imobilizado->setPatrimonio($_POST['patrimonio']);
-    $imobilizado->setModelo($_POST['modelo']);
     $imobilizado->setLocalizacao($_POST['localizacao']);
     $imobilizado->setNotaFiscal($_POST['nota_fiscal']);
     $imobilizado->setUsuarioId($_POST['usuario']);
     $imobilizado->setStatus($_POST['status']);
-
+    // Não seta tipo_id aqui, o trigger vai preencher no banco automaticamente
 
     $imobilizado->cadastrar();
     $erros = 0;
@@ -71,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
         <h2 class="form-title">Cadastro</h2>
 
         <form class="form" action="incluirImobilizados.php" method="POST" id="form-estoque">
+
             <div class="campo-form">
                 <label for="modeloTonner">Modelo:</label>
                 <select id="modelo" name="modelo" required>
@@ -124,13 +124,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                 <label for="status">Situação:</label>
                 <select id="status" name="status" required>
                     <option value=""></option>
-                    <option value="ativo">Ativo</option>
-                    <option value="em_manutencao">Em manutenção</option>
-                    <option value="reservado">Reservado</option>
-                    <option value="emprestado">Emprestado</option>
-                    <option value="disponivel">Disponível</option>
-                    <option value="perdido">Perdido</option>
-                    <option value="sucata">Sucata</option>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Em_manutencao">Em manutenção</option>
+                    <option value="Reservado">Reservado</option>
+                    <option value="Emprestado">Emprestado</option>
+                    <option value="Disponivel">Disponível</option>
+                    <option value="Perdido">Perdido</option>
+                    <option value="Sucata">Sucata</option>
                 </select>
             </div>
 

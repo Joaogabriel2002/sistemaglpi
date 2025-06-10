@@ -96,23 +96,24 @@ class Imobilizados extends Conexao {
 
     // Cadastrar imobilizado
     public function cadastrar() {
-        $sql = "INSERT INTO imobilizados 
-            ( patrimonio, modelo, localizacao, nota_fiscal, usuario_id, status) 
+    $sql = "INSERT INTO imobilizados 
+            (patrimonio, modelo_id, localizacao, nota_fiscal, usuario_id, status) 
             VALUES 
-            (:patrimonio, :modelo, :localizacao, :nota_fiscal, :usuario_id, :status)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':patrimonio', $this->patrimonio);
-        $stmt->bindParam(':modelo', $this->modelo);
-        $stmt->bindParam(':localizacao', $this->localizacao);
-        $stmt->bindParam(':nota_fiscal', $this->nota_fiscal);
-        $stmt->bindParam(':usuario_id', $this->usuario_id);
-        $stmt->bindParam(':status', $this->status);
+            (:patrimonio, :modelo_id, :localizacao, :nota_fiscal, :usuario_id, :status)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':patrimonio', $this->patrimonio);
+    $stmt->bindParam(':modelo_id', $this->modelo);
+    $stmt->bindParam(':localizacao', $this->localizacao);
+    $stmt->bindParam(':nota_fiscal', $this->nota_fiscal);
+    $stmt->bindParam(':usuario_id', $this->usuario_id);
+    $stmt->bindParam(':status', $this->status);
 
-        if ($stmt->execute()) {
-            return $this->conn->lastInsertId();
-        }
-        return false;
+    if ($stmt->execute()) {
+        return $this->conn->lastInsertId();
     }
+    return false;
+}
+
 
     // Buscar imobilizado pelo id
     public function buscarPorId($id) {
@@ -147,6 +148,25 @@ class Imobilizados extends Conexao {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function listarImobilizados() {
+    $sql = "SELECT 
+                i.id,
+                i.patrimonio,
+                i.localizacao,
+                i.nota_fiscal,
+                i.status,
+                e.descricaoEquipamento AS modelo,
+                u.nome AS usuario
+            FROM imobilizados i
+            LEFT JOIN equipamentos e ON i.modelo_id = e.idEquipamento
+            LEFT JOIN usuarios u ON i.usuario_id = u.id
+            ORDER BY u.nome";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 }
 ?>
