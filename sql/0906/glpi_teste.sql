@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/06/2025 às 03:23
+-- Tempo de geração: 09/06/2025 às 22:42
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -93,7 +93,7 @@ INSERT INTO `chamados` (`chamadoId`, `status`, `tipoChamado`, `tituloChamado`, `
 (1037, 'Aberto', NULL, 'Teste', 'teste', '2025-06-07 14:36:41', NULL, 27, 'Teste', 'teste@teste.com', 'Logistica'),
 (1038, 'Aberto', NULL, 'Teste', 'Este é um chamado teste', '2025-06-07 14:47:37', NULL, 20, 'João', 'joao.gabriel@chesiquimica.com.br', 'TI'),
 (1039, 'Aberto', NULL, 'Chamado Teste', 'ESPESSANTE ACRILICO TINTA 8110', '2025-06-07 15:17:09', NULL, 29, 'Teste', 'testeeeeeeeeee@teste.com', 'Formulacao'),
-(1040, 'Fechado', 'Baixa', 'INTERNET CAIU ', 'MINHA INTERNET CAIU ', '2025-06-09 15:58:10', '2025-06-09 20:44:23', 33, 'PAULO', 'EMBALAGENS@CHESIQUIMICA.COM.BR', 'Qualidade');
+(1040, 'Em Andamento', 'Baixa', 'INTERNET CAIU ', 'MINHA INTERNET CAIU ', '2025-06-09 15:58:10', NULL, 33, 'PAULO', 'EMBALAGENS@CHESIQUIMICA.COM.BR', 'Qualidade');
 
 --
 -- Acionadores `chamados`
@@ -205,36 +205,36 @@ INSERT INTO `fornecedor` (`id`, `nome`, `cnpj`, `telefone`, `email`, `endereco`)
 
 CREATE TABLE `imobilizados` (
   `id` int(11) NOT NULL,
+  `tipo` varchar(255) DEFAULT 'Outro',
   `patrimonio` varchar(50) DEFAULT NULL,
-  `modelo_id` int(11) NOT NULL,
+  `modelo` varchar(100) DEFAULT NULL,
   `localizacao` varchar(100) DEFAULT NULL,
   `nota_fiscal` varchar(50) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
-  `status` varchar(20) DEFAULT 'Ativo',
-  `modelo` varchar(100) DEFAULT NULL
+  `status` varchar(20) DEFAULT 'Ativo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `imobilizados`
 --
 
-INSERT INTO `imobilizados` (`id`, `patrimonio`, `modelo_id`, `localizacao`, `nota_fiscal`, `usuario_id`, `status`, `modelo`) VALUES
-(3, 'PAT-0001', 1, 'Almoxarifado', 'NF123456', 20, 'Ativo', 'Impressora'),
-(4, 'PAT-0001', 6, 'Almoxarifado', 'NF123456', 20, 'Ativo', 'Outros'),
-(5, '0000', 1, 'TI', '11', 29, 'disponivel', 'Impressora');
+INSERT INTO `imobilizados` (`id`, `tipo`, `patrimonio`, `modelo`, `localizacao`, `nota_fiscal`, `usuario_id`, `status`) VALUES
+(10, 'Outro', '2025', '7', 'TI', '000', 30, 'ativo');
 
 --
 -- Acionadores `imobilizados`
 --
 DELIMITER $$
-CREATE TRIGGER `before_insert_imobilizados` BEFORE INSERT ON `imobilizados` FOR EACH ROW BEGIN
-  DECLARE v_descricao VARCHAR(100);
+CREATE TRIGGER `trg_preencher_tipo_before_insert` BEFORE INSERT ON `imobilizados` FOR EACH ROW BEGIN
+  DECLARE v_tipo VARCHAR(255);
 
-  SELECT tipo INTO v_descricao
-  FROM equipamentos
-  WHERE idEquipamento = NEW.modelo_id;
+  SELECT tipo INTO v_tipo FROM equipamentos WHERE descricaoEquipamento = NEW.modelo LIMIT 1;
 
-  SET NEW.modelo = v_descricao;
+  IF v_tipo IS NULL OR v_tipo = '' THEN
+    SET NEW.tipo = 'Outro';
+  ELSE
+    SET NEW.tipo = v_tipo;
+  END IF;
 END
 $$
 DELIMITER ;
@@ -500,8 +500,7 @@ ALTER TABLE `fornecedor`
 --
 ALTER TABLE `imobilizados`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `modelo_id` (`modelo_id`);
+  ADD KEY `usuario_id` (`usuario_id`);
 
 --
 -- Índices de tabela `impressora_tonner`
@@ -589,7 +588,7 @@ ALTER TABLE `fornecedor`
 -- AUTO_INCREMENT de tabela `imobilizados`
 --
 ALTER TABLE `imobilizados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `impressora_tonner`
@@ -647,8 +646,7 @@ ALTER TABLE `estoque`
 -- Restrições para tabelas `imobilizados`
 --
 ALTER TABLE `imobilizados`
-  ADD CONSTRAINT `imobilizados_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `imobilizados_ibfk_2` FOREIGN KEY (`modelo_id`) REFERENCES `equipamentos` (`idEquipamento`);
+  ADD CONSTRAINT `imobilizados_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Restrições para tabelas `impressora_tonner`
