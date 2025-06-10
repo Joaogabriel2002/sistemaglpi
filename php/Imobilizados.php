@@ -192,7 +192,12 @@ public function listarImobilizadoPorId($id) {
 }
 
 
-
+        public function excluir(){
+            $sql="DELETE FROM imobilizados WHERE id=:id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id',$this->id);
+            return $stmt->execute();
+        }
 
 
 

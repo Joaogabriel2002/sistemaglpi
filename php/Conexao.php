@@ -3,9 +3,9 @@
     class Conexao{
 
         private $dbname = "glpi_teste";
-        private $user = "usuario";
-        private $password ="senha";
-        private $host = "172.20.90.69";
+        private $user = "root";
+        private $password ="";
+        private $host = "localhost";
         protected $conn;
         
         

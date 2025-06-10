@@ -85,7 +85,7 @@ $detalhesImobilizado = $imobilizado->listarImobilizadoPorId($idAtual);
 
     <div class="campo-form">
         <label>Usuário:</label>
-        <input type="text" name="usuario_id" value="<?php echo htmlspecialchars($detalhesImobilizado['usuario_id']); ?>" required>
+        <input type="text" name="usuario_id" value="<?php echo htmlspecialchars($detalhesImobilizado['usuario']); ?>" required>
     </div>
 
     <div class="campo-form">
