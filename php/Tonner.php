@@ -247,7 +247,7 @@ class Tonner extends Conexao {
 
     // Listar por autorId e filtros
     public function listarTodosTonnerPorId($autorId, $status = '', $tonnerId = '') {
-        $sql = "SELECT ts.*, i.modeloTonner, i.corTonner, i.nome
+        $sql = "SELECT ts.*, i.nome
                 FROM tonnerSolicitacao ts
                 JOIN itens i ON ts.tonnerId = i.id
                 WHERE ts.autorId = :autorId";

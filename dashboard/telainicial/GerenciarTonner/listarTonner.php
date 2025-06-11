@@ -87,7 +87,7 @@ if (empty($idFiltro)) {
                 <td><?php echo $tonner['status']; ?></td>
                 <td><?php echo $tonner['dtAbertura']; ?></td>
                 <td><?php echo $tonner['nome']; ?></td>
-                <td><?php echo $tonner['cor']; ?></td>
+                <td><?php echo $tonner['corTonner   ']; ?></td>
                 <td><?php echo $tonner['autorNome']; ?></td>
                 <td><?php echo $tonner['situacao']; ?></td>
                 <td><a href="detalhesTonner.php?id=<?= $tonner['solicitacaoId']; ?>">Selecionar</a></td>

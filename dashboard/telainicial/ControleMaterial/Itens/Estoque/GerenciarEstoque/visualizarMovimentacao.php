@@ -24,7 +24,7 @@ $movimentacoes = $movimentacao->listarMovimentacoes();
 </head>
 <body>
     <h1>Estoque Atual:</h1>
-    <a href="imobilizados.php">Voltar</a>
+    <a href="MovimentacaoEstoque.php">Voltar</a>
 
     <table border="1">
     <tr>

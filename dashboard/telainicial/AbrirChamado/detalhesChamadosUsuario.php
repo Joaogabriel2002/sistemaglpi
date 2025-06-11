@@ -83,20 +83,36 @@ $atualizacoesChamado = $chamado->listarAtualizacoesPorChamado($chamadoId);
 
 
 if (!empty($atualizacoesChamado)) {
+    echo '<table border="1" cellpadding="5" cellspacing="0">';
+    echo '<thead>
+            <tr>
+                <th>Data da Atualização</th>
+                <th>Técnico</th>
+                <th>Comentário</th>
+                <th>Ação</th>
+            </tr>
+          </thead>';
+    echo '<tbody>';
+
     foreach ($atualizacoesChamado as $atualizacao) {
         ?>
         <tr>
-           <!-- <td><?php echo $atualizacao['id_atualizacao']; ?></td> -->
-            <td><?php echo $atualizacao['dt_atualizacao']; ?></td>
-            <td><?php echo $atualizacao['tecnico']; ?></td>
-            <td><?php echo $atualizacao['comentario']; ?></td>
-            <!-- <td><a href="excluirAtualizacao.php?id=<?=$atualizacao['id_atualizacao']; ?>">Selecionar</a></td> -->
-        </tr><br>
+            <td><?= htmlspecialchars($atualizacao['dt_atualizacao']); ?></td>
+            <td><?= htmlspecialchars($atualizacao['tecnico']); ?></td>
+            <td><?= nl2br(htmlspecialchars($atualizacao['comentario'])); ?></td>
+            <td>
+                <a href="excluirAtualizacao.php?id_atualizacao=<?= $atualizacao['id_atualizacao']; ?>&id_chamado=<?= $chamadoId; ?>&status=<?= urlencode($detalhesChamado['status']); ?>">Excluir</a>
+            </td>
+        </tr>
         <?php
     }
+
+    echo '</tbody>';
+    echo '</table>';
 } else {
-    echo "<tr><td colspan='4'>Nenhuma atualização encontrada para este chamado.</td></tr>";
+    echo "<p>Nenhuma atualização encontrada para este chamado.</p>";
 }
+
 echo "<br>";
 echo "<a href=\"listarChamadosPorId.php\">Voltar</a>";
 ?>
