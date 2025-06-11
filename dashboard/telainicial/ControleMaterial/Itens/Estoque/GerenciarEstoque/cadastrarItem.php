@@ -1,5 +1,5 @@
 <?php
-require_once "..\..\..\php/Itens.php";
+require_once "..\..\..\..\..\..\php/Itens.php";
 
 $msg = "";
 $success = false;
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - ChesiQuímica</title>
-    <link rel="stylesheet" href="..\..\..\css/incluirEstoque.css">
+    <link rel="stylesheet" href="..\..\..\..\..\..\css/incluirEstoque.css">
     <link rel="icon" href="../img/chesiquimica-logo-png.png" type="image/png">
 </head>
 
@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     <div class="container">
         <div class="left-section">
-            <img src="..\img/chesiquimica-logo-png.png" alt="Logo ChesiQuímica" class="brand-logo">
-            <img src="..\img/chesiquimica-letreiro-png.png" alt="Logo ChesiQuímica" class="brand-name">
+            <img src="..\..\..\..\..\..\img/chesiquimica-logo-png.png" alt="Logo ChesiQuímica" class="brand-logo">
+            <img src="..\..\..\..\..\..\img/chesiquimica-letreiro-png.png" alt="Logo ChesiQuímica" class="brand-name">
         </div>
 
         <div class="right-section">
-            <a href="telaEstoque.php" class="back-link">Voltar</a>
+            <a href="..\estoque.php" class="back-link">Voltar</a>
             <?php if (!empty($msg)) : ?>
                 <p style="color: <?= $success ? 'green' : 'red' ?>;"><?= $msg ?></p>
             <?php endif; ?>

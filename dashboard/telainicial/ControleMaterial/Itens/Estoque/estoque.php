@@ -32,7 +32,7 @@
             <h2 class="title-right">Gerenciamento de Estoque:</h2>
             <div class="botoes">
                 <!-- <a href="incluirImobilizados.php" class="opcoes alongado">Adicionar Imobilizados</a> -->
-                <a href="cadastroImobilizados.php" class="opcoes alongado">Cadastrar Itens</a>
+                <a href="GerenciarEstoque\cadastrarItem.php" class="opcoes alongado">Cadastrar Itens</a>
                 <a href="listaEstoque.php" class="opcoes alongado">Visualizar Estoque</a>
                 <a href="GerenciarEstoque\MovimentacaoEstoque.php" class="opcoes alongado">Movimentação de Estoque</a>
                 
