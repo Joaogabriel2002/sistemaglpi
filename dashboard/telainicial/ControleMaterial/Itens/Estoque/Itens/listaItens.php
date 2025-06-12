@@ -31,6 +31,7 @@ $itens = $item->listarItens();
             <th>ID</th>
             <th>Nome</th>
             <th>Tipo</th>
+            <th>Opções  </th>
             
         </tr>
 
@@ -39,7 +40,7 @@ $itens = $item->listarItens();
                 <td><?php echo $item['id']; ?></td>
                 <td><?php echo $item['nome']; ?></td>
                 <td><?php echo $item['tipo']; ?></td>
-                <!-- <td><a href="excluirItens.php?id=<?= $item['id']; ?>">Excluir</a></td> -->
+                <td><a href="movimentacoesItens.php?id=<?= $item['id']; ?>">Movimentações</a></td>
             </tr>
         <?php } ?>
     </table>

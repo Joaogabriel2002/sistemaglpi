@@ -144,7 +144,29 @@ class Estoque extends Conexao {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+    public function consultarMovimentacoesPorItemId($item_id){
+    $sql = "SELECT
+                e.id,
+                e.nota_fiscal,
+                e.fornecedor,
+                e.quantidade,
+                e.tipo_movimentacao,
+                e.data_movimentacao,
+                e.motivo,
+                u.nome AS usuario,
+                i.nome AS nomeItem,
+                e.item_id
+            FROM estoque e
+            LEFT JOIN usuarios u ON e.usuario_id = u.id
+            LEFT JOIN itens i ON e.item_id = i.id
+            WHERE e.item_id = :item_id";
 
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':item_id', $item_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 
 
 
