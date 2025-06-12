@@ -28,7 +28,7 @@ $itens = $item->listarEstoque();
 
     <table border="1">
         <tr>
-            <th>ID</th>
+            
             <th>Nome</th>
             <th>Tipo</th>
             <th>Saldo em Estoque</th>
@@ -36,7 +36,7 @@ $itens = $item->listarEstoque();
 
         <?php foreach ($itens as $item) { ?>
             <tr>
-                <td><?php echo $item['id']; ?></td>
+            
                 <td><?php echo $item['nome']; ?></td>
                 <td><?php echo $item['tipo']; ?></td>
                 <td><?php echo $item['saldo']; ?></td>

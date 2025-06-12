@@ -38,7 +38,7 @@
                 <a href="SolicitarTonner\indexChamadoTonner.php" class="opcoes">Solicitar Tonner</a>
                 <a href="GerenciarTonner\listarTonner.php" class="opcoes">Listar Solicitações de Tonner</a>
                 <a href="ControleMaterial\GerenciamentoEstoque.php" class="opcoes">Controle de Material</a>
-                <a href="..\..\tonner/indexChamadoTonner.php" class="opcoes">botao 2</a>
+                <a href="Cadastros\cadastro.php" class="opcoes">Cadastros</a>
                 
                 <a href="..\..\login/logoff.php" class="opcoes sair alongado">Sair</a>
             </div>
