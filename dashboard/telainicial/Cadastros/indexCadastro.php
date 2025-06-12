@@ -1,5 +1,5 @@
 <?php
-require_once "..\php/Usuario.php";
+require_once "..\..\..\php/Usuario.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $usuario = new Usuario();
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - ChesiQuímica</title>
-    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../../../css/cadastro.css">
    
     <link rel="icon" href="../img/chesiquimica-logo-png.png" type="image/png">
 </head>
@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <div class="container">
         <!-- Bloco Verde -->
         <div class="left-section">
-            <img src="..\img/chesiquimica-logo-png.png" alt="Logo ChesiQuímica" class="brand-logo">
-            <img src="..\img/chesiquimica-letreiro-png.png" alt="Logo ChesiQuímica" class="brand-name">
+            <img src="../../../img/chesiquimica-logo-png.png" alt="Logo ChesiQuímica" class="brand-logo">
+            <img src="../../../img/chesiquimica-letreiro-png.png" alt="Logo ChesiQuímica" class="brand-name">
         </div>
 
         <!-- Bloco Branco (Formulário) -->

@@ -4,7 +4,7 @@ require_once '..\..\..\php\Tonner.php';
 require_once '..\..\..\php\Imobilizados.php';
 
 if (!isset($_SESSION['usuario_id'])) {
-    header("Location: ..\..\index.php");
+    header("Location: ..\..\..\index.php");
     exit();
 }
 

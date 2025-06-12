@@ -52,7 +52,6 @@ class Itens extends Conexao {
         return $this->modeloId;
     }
 
-    
 
 
     public function listarItens() {
@@ -69,11 +68,11 @@ class Itens extends Conexao {
         $sql = "SELECT * FROM itens";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
-        
+    
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultados;
+}
 
-             return $resultados;
-        }
     
     
     public function cadastrarItens(){
