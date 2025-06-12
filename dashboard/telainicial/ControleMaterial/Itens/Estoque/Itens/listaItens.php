@@ -41,6 +41,7 @@ $itens = $item->listarItens();
                 <td><?php echo $item['nome']; ?></td>
                 <td><?php echo $item['tipo']; ?></td>
                 <td><a href="movimentacoesItens.php?id=<?= $item['id']; ?>">Movimentações</a></td>
+                <td><a href="vincularItem.php?id=<?= $item['id']; ?>">Vincular</a></td>
             </tr>
         <?php } ?>
     </table>

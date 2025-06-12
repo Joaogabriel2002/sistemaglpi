@@ -5,6 +5,8 @@ class Itens extends Conexao {
     private $id;
     private $nome;
     private $tipo;
+    private $impressoraId;
+    private $modeloId;
 
     public function setId($id) {
         $this->id = $id;
@@ -29,6 +31,28 @@ class Itens extends Conexao {
     public function getTipo() {
         return $this->tipo;
     }
+
+
+    public function setImpressoraId($impressoraId) {
+        $this->impressoraId = $impressoraId;
+    }
+
+    
+    public function getImpressoraId() {
+        return $this->impressoraId;
+    }
+
+    
+    public function setModeloId($modeloId) {
+        $this->modeloId = $modeloId;
+    }
+
+    
+    public function getModeloId() {
+        return $this->modeloId;
+    }
+
+    
 
 
     public function listarItens() {
@@ -110,6 +134,18 @@ public function excluirItem($id) {
 
     return $stmtDelete->execute();
 }
+    public function vincularItem(){
+        $sql = "INSERT INTO impressora_tonner (impressoraId, modeloTonnerId) VALUES (:impressoraId, :modeloId)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':impressoraId',$this->impressoraId);
+        $stmt->bindParam(':modeloId',$this->modeloId);
+        if ($stmt->execute()){
+                return $this->conn->lastInsertId();
+            }else{
+                return false;
+            }
+    }
+    }
 
-}
+
 ?>
