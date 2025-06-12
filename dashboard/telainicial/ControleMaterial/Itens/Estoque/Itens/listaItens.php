@@ -32,6 +32,7 @@ $itens = $item->listarItens();
             <th>Nome</th>
             <th>Tipo</th>
             <th>Opções  </th>
+            <th>Vincular</th>
             
         </tr>
 
