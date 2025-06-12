@@ -23,7 +23,7 @@ $movimentacoes = $movimentacao->listarMovimentacoes();
     <link rel="stylesheet" href="/gerenciadorti/css/listaUsuarios.css">
 </head>
 <body>
-    <h1>Estoque Atual:</h1>
+    <h1>Movimentações Gerais:</h1>
     <a href="MovimentacaoEstoque.php">Voltar</a>
 
     <table border="1">
@@ -45,7 +45,7 @@ $movimentacoes = $movimentacao->listarMovimentacoes();
             <td><?= htmlspecialchars($mov['motivo']) ?></td>
             <td><?= htmlspecialchars($mov['usuario']) ?></td>
 
-            <td><a href="detalhesImobilizados.php?id=<?= $mov['id']; ?>">&#9998;</a></td>
+            <!-- <td><a href="detalhesImobilizados.php?id=<?= $mov['id']; ?>">&#9998;</a></td> -->
         </tr>
     <?php } ?>
 </table>

@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($erros > 0) {
         $msg = "Erro ao cadastrar $erros item(s).";
     } else {
-        $msg = "Itens cadastrados com sucesso!";
+        $msg = "Lançamento efetuado com sucesso!";
     }
 }
 ?>

@@ -81,7 +81,35 @@ class Itens extends Conexao {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function excluirItem($id) {
+    // Verifica o saldo do item
+    $sqlSaldo = "
+        SELECT 
+            COALESCE(SUM(CASE WHEN e.tipo_movimentacao = 'ENTRADA' THEN e.quantidade ELSE 0 END), 0) -
+            COALESCE(SUM(CASE WHEN e.tipo_movimentacao = 'SAIDA' THEN e.quantidade ELSE 0 END), 0) AS saldo
+        FROM itens i
+        LEFT JOIN estoque e ON i.id = e.item_id
+        WHERE i.id = :id
+        GROUP BY i.id
+    ";
 
+    $stmtSaldo = $this->conn->prepare($sqlSaldo);
+    $stmtSaldo->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmtSaldo->execute();
+    $saldo = $stmtSaldo->fetchColumn();
+
+    // Se não encontrou o item, ou saldo não for 0, não exclui
+    if ($saldo === false || $saldo != 0) {
+        return false;
+    }
+
+    // Se saldo for 0, exclui o item
+    $sqlDelete = "DELETE FROM itens WHERE id = :id";
+    $stmtDelete = $this->conn->prepare($sqlDelete);
+    $stmtDelete->bindParam(':id', $id, PDO::PARAM_INT);
+
+    return $stmtDelete->execute();
+}
 
 }
 ?>

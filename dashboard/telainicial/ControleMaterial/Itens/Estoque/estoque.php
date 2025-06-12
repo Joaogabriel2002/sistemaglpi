@@ -33,8 +33,8 @@
             <div class="botoes">
                 <!-- <a href="incluirImobilizados.php" class="opcoes alongado">Adicionar Imobilizados</a> -->
                 <a href="GerenciarEstoque\cadastrarItem.php" class="opcoes alongado">Cadastrar Itens</a>
-                <a href="listaEstoque.php" class="opcoes alongado">Visualizar Estoque</a>
                 <a href="GerenciarEstoque\MovimentacaoEstoque.php" class="opcoes alongado">Movimentação de Estoque</a>
+                <a href="Itens\listaItens.php" class="opcoes alongado">Visualizar Itens</a>
                 
                 <a href="..\..\GerenciamentoEstoque.php" class="opcoes sair alongado">Voltar</a>
             </div>

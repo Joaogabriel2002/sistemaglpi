@@ -3,6 +3,7 @@ require_once '..\..\..\..\..\..\php\Itens.php';
 require_once '..\..\..\..\..\..\php\Fornecedor.php';
 require_once '..\..\..\..\..\..\php\Estoque.php';
 $msg = "";
+session_start();    
 
 // Buscar itens do banco
 $itensObj = new Itens();
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantidades = $_POST['quantidade'] ?? [];
     $tipo_movimentacao = "SAIDA";
     $motivo= $_POST['motivo'] ?? [];
+    $usuario = $_SESSION['usuario_id'];
 
     $estoque = new Estoque();
     $erros = 0;
@@ -67,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $estoque->setQuantidade($quantidades[$index]);
         $estoque->setTipo_Movimentacao($tipo_movimentacao);
         $estoque->setMotivo($motivo);
+        $estoque->setUsuarioId($usuario);
 
         $ultimoId = $estoque->incluirEstoque();
 
@@ -78,9 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if ($erros > 0) {
-        // $msg = "Erro ao cadastrar $erros item(s).";
+        // $msg = "Erro ao baixar item";
     } else {
-        $msg = "Itens cadastrados com sucesso!";
+        $msg .= "{$quantidades[$index]} unidade(s) do {$nomeItem} baixada!";
     }
 }
 ?>
