@@ -1,7 +1,8 @@
 <?php
 require_once '..\..\..\php/Tonner.php';
-
+require_once '..\..\..\php/Itens.php';
 session_start();
+
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: ../../index.php');
     exit;
@@ -13,13 +14,34 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     die('ID da solicitação inválido.');
 }
 
-$idAtual = $_GET['id'];
+$idAtual = $solicitacaoId;
+
 $tonner = new Tonner();
+$item = new Itens();
+
+// Busca detalhes da solicitação e atualizações
 $detalhesTonner = $tonner->listarTonnerporId($idAtual);
 $atualizacoesTonner = $tonner->listarAtualizacoesPorSolicitacao($solicitacaoId);
+$saldo = $item->listarEstoque();
 
 if (!$detalhesTonner) {
     die('Solicitação não encontrada.');
+}
+
+// Determina status de estoque baseado no saldo
+$statusEstoque = 'Sem estoque'; // padrão
+$nomeTonner = $detalhesTonner['nome'];
+
+$saldoTonner = 0;
+foreach ($saldo as $itemEstoque) {
+    if ($itemEstoque['nome'] === $nomeTonner) {
+        $saldoTonner = (int)$itemEstoque['saldo'];
+        break;
+    }
+}
+
+if ($saldoTonner > 0) {
+    $statusEstoque = 'Em estoque';
 }
 ?>
 
@@ -39,7 +61,7 @@ if (!$detalhesTonner) {
 <table border="1">
     <tr>
         <th>Id da Solicitação</th>
-        <th>Status</th>
+        <th>Status Estoque</th>
         <th>Situação</th>
         <th>Data de Abertura</th>
         <th>Modelo</th>
@@ -50,15 +72,15 @@ if (!$detalhesTonner) {
     </tr>
 
     <tr>
-        <td><?= $detalhesTonner['solicitacaoId'] ?></td>
-        <td><?= $detalhesTonner['status'] ?></td>
-        <td><?= $detalhesTonner['situacao'] ?></td>
-        <td><?= $detalhesTonner['dtAbertura'] ?></td>
-        <td><?= $detalhesTonner['nome'] ?></td>
-        <td><?= $detalhesTonner['corTonner'] ?></td>
-        <td><a href="detalhesUsuario.php?id=<?= $detalhesTonner['autorId'] ?>"><?= $detalhesTonner['autorNome'] ?></a></td>
-        <td><?= $detalhesTonner['autorEmail'] ?></td>
-        <td><?= $detalhesTonner['autorSetor'] ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['solicitacaoId']) ?></td>
+        <td><?= htmlspecialchars($statusEstoque) ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['situacao']) ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['dtAbertura']) ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['nome']) ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['corTonner']) ?></td>
+        <td><a href="detalhesUsuario.php?id=<?= urlencode($detalhesTonner['autorId']) ?>"><?= htmlspecialchars($detalhesTonner['autorNome']) ?></a></td>
+        <td><?= htmlspecialchars($detalhesTonner['autorEmail']) ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['autorSetor']) ?></td>
     </tr>
 </table>
 
@@ -72,28 +94,24 @@ if (!$detalhesTonner) {
         <th>Ações</th>
     </tr>
 
-    <?php
-    if (!empty($atualizacoesTonner)) {
-        foreach ($atualizacoesTonner as $atualizacao) {
-            ?>
+    <?php if (!empty($atualizacoesTonner)) : ?>
+        <?php foreach ($atualizacoesTonner as $atualizacao) : ?>
             <tr>
-                <td><?= $atualizacao['dtAtualizacao'] ?></td>
-                <td><?= $atualizacao['tecnico'] ?></td>
-                <td><?= $atualizacao['situacao'] ?></td>
+                <td><?= htmlspecialchars($atualizacao['dtAtualizacao']) ?></td>
+                <td><?= htmlspecialchars($atualizacao['tecnico']) ?></td>
+                <td><?= htmlspecialchars($atualizacao['situacao']) ?></td>
                 <td>
-                    <a href="excluirAtualizacao2.php?id_atualizacao=<?= $atualizacao['id_atualizacao'] ?>&id_chamado=<?= $solicitacaoId ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Selecionar</a>
+                    <a href="excluirAtualizacao2.php?id_atualizacao=<?= urlencode($atualizacao['id_atualizacao']) ?>&id_chamado=<?= urlencode($solicitacaoId) ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Selecionar</a>
                 </td>
             </tr>
-            <?php
-        }
-    } else {
-        echo "<tr><td colspan='4'>Nenhuma atualização encontrada para este chamado.</td></tr>";
-    }
-    ?>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <tr><td colspan="4">Nenhuma atualização encontrada para este chamado.</td></tr>
+    <?php endif; ?>
 </table>
 
 <br>
-<a href="atualizarTonner.php?id=<?= $idAtual ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Atualizar</a>
+<a href="atualizarTonner.php?id=<?= urlencode($idAtual) ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Atualizar</a>
 <br>
 <a href="listarTonner.php">Voltar</a>
 
