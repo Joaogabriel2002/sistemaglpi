@@ -168,6 +168,29 @@ class Estoque extends Conexao {
 
     }
 
+public function buscarSaldo($nome, $cor) {
+    $sql = "
+        SELECT 
+            COALESCE(SUM(CASE WHEN tipo_movimentacao = 'entrada' THEN quantidade ELSE 0 END), 0) -
+            COALESCE(SUM(CASE WHEN tipo_movimentacao = 'saida' THEN quantidade ELSE 0 END), 0) AS saldo
+        FROM movimentacoes
+        WHERE nome = :nome AND cor = :cor
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':cor', $cor);
+    $stmt->execute();
+
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($resultado) {
+        return (int)$resultado['saldo'];
+    } else {
+        return 0;
+    }
+}
+
 
 
 }

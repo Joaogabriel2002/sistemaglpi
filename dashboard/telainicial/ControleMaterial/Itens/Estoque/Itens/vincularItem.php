@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="button-voltar">
-            <a href="..\..\..\php\validacao.php">Voltar</a>
+            <a href="listaItens.php">Voltar</a>
         </div>
     </div>
 </div>

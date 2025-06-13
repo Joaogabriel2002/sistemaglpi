@@ -347,4 +347,32 @@ class Tonner extends Conexao {
             $stmt->execute();
             return $stmt->rowCount();
         }
+
+        public function buscarSaldo($itemId) {
+    $sql = "
+        SELECT 
+            COALESCE(SUM(CASE WHEN e.tipo_movimentacao = 'ENTRADA' THEN e.quantidade ELSE 0 END), 0) -
+            COALESCE(SUM(CASE WHEN e.tipo_movimentacao = 'SAIDA' THEN e.quantidade ELSE 0 END), 0) AS saldo
+        FROM estoque e
+        WHERE e.item_id = :itemId
+    ";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':itemId', $itemId);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+    public function listarMovimentacoesPorItem($item_id)
+{
+    $sql = "SELECT e.*, u.nome AS nome_usuario 
+            FROM estoque e
+            LEFT JOIN usuarios u ON e.usuario_id = u.id
+            WHERE e.item_id = :item_id
+            ORDER BY e.id DESC"; // ou e.data_movimentacao DESC, caso tenha a coluna data
+    
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':item_id', $item_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }
