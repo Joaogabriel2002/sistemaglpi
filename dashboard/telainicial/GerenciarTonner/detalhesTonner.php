@@ -61,7 +61,7 @@ if ($saldoTonner > 0) {
 <table border="1">
     <tr>
         <th>Id da Solicitação</th>
-        <th>Status Estoque</th>
+        <th>Status</th>
         <th>Situação</th>
         <th>Data de Abertura</th>
         <th>Modelo</th>
@@ -73,8 +73,8 @@ if ($saldoTonner > 0) {
 
     <tr>
         <td><?= htmlspecialchars($detalhesTonner['solicitacaoId']) ?></td>
-        <td><?= htmlspecialchars($statusEstoque) ?></td>
-        <td><?= htmlspecialchars($detalhesTonner['situacao']) ?></td>
+        <td><?= htmlspecialchars($detalhesTonner['status']) ?></td>
+        <td><?= htmlspecialchars($statusEstoque) ?></td>        
         <td><?= htmlspecialchars($detalhesTonner['dtAbertura']) ?></td>
         <td><?= htmlspecialchars($detalhesTonner['nome']) ?></td>
         <td><?= htmlspecialchars($detalhesTonner['corTonner']) ?></td>
@@ -86,7 +86,7 @@ if ($saldoTonner > 0) {
 
 <h2>Atualizações da Solicitação</h2>
 
-<table border="1">
+<table border= "1">
     <tr>
         <th>Data</th>
         <th>Técnico</th>
@@ -101,17 +101,16 @@ if ($saldoTonner > 0) {
                 <td><?= htmlspecialchars($atualizacao['tecnico']) ?></td>
                 <td><?= htmlspecialchars($atualizacao['situacao']) ?></td>
                 <td>
-                    <a href="excluirAtualizacao2.php?id_atualizacao=<?= urlencode($atualizacao['id_atualizacao']) ?>&id_chamado=<?= urlencode($solicitacaoId) ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Selecionar</a>
+                    <a href="excluirAtualizacao2.php?id_atualizacao=<?= urlencode($atualizacao['id_atualizacao']) ?>&id_chamado=<?= urlencode($solicitacaoId) ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     <?php else : ?>
         <tr><td colspan="4">Nenhuma atualização encontrada para este chamado.</td></tr>
     <?php endif; ?>
-</table>
-
+    </table>
 <br>
-<a href="atualizarTonner.php?id=<?= urlencode($idAtual) ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Atualizar</a>
+<a href="atualizarTonner.php?id=<?= urlencode($idAtual) ?>&status=<?= urlencode($detalhesTonner['status']) ?>&statusEstoque=<?= urlencode($statusEstoque)?>">Atualizar</a>
 <br>
 <a href="listarTonner.php">Voltar</a>
 

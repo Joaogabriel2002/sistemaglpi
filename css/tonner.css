@@ -43,3 +43,20 @@ a{
 button:hover {
     background-color: #28b88f;
 }
+.campo-form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-self: start;
+}
+.campo-form input,
+.campo-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}

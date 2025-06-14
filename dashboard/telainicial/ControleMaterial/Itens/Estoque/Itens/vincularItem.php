@@ -14,10 +14,13 @@ if($_SESSION['setor'] !== "TI"){
 
 $item = new Itens();
 $equipamento = new Imobilizados();
-$itens = $item->listarItens();
 $equipamentos = $equipamento->listarImpressorasAtivas();
 
-$msg = "";  // variável para mensagem de feedback
+$msg = "";
+
+// pegar dados da URL
+$modeloTonnerId = isset($_GET['id']) ? $_GET['id'] : '';
+$modeloTonnerNome = isset($_GET['nome']) ? $_GET['nome'] : '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $modeloTonner = $_POST['modeloTonner'] ?? '';
@@ -46,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="indexChamadoTonner.js" defer></script>
     <title>Solicitar Tonner</title>
     <link rel="icon" href="../../../img/chesiquimica-logo-png.png" type="image/png" />
     <link rel="stylesheet" href="../../../../../../css/base.css" />
@@ -69,19 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <h2>Vincular Suprimento</h2>
-        <form id="tonner" action="vincularItem.php" method="POST">
+        <form id="tonner" action="vincularItem.php?id=<?= urlencode($modeloTonnerId) ?>&nome=<?= urlencode($modeloTonnerNome) ?>" method="POST">
 
             <div class="modeloTonner">
-                <label for="modeloTonner">Modelo de Tonner</label>
-                <select id="modeloTonner" name="modeloTonner" required>
-                    <option value=""></option>
-                    <?php foreach ($itens as $its): ?>
-                        <option value="<?= htmlspecialchars($its['id']) ?>">
-                            <?= htmlspecialchars($its['nome']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="hidden" id="modeloTonnerId" name="modeloTonner" value="<?= htmlspecialchars($modeloTonnerId) ?>" readonly required>
             </div>
+
+            <div class="campo-form">
+                <label for="modeloTonnerNome">Nome do Tonner</label>
+                <input type="text" id="modeloTonnerNome" value="<?= htmlspecialchars($modeloTonnerNome) ?>" readonly>
+            </div><br>
 
             <div class="modeloImpressora">
                 <label for="modeloImpressora">Modelo da Impressora</label>

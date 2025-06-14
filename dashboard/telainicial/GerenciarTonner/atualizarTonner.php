@@ -14,6 +14,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     
     $statusAtual = $detalhesTonner['status']; 
     $prioridade = $detalhesTonner['situacao'];
+    $statusEstoque= $_GET['statusEstoque'];
 } else {
     die('ID do toner inválido ou não fornecido.');
 }
@@ -58,13 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="Cancelado" <?php echo ($statusAtual == 'Cancelado') ? 'selected' : ''; ?>>Cancelado</option>
             </select>
             <br />
-            <label for="situacao">Definir Situação:</label>
-            <select name="situacao" id="situacao">
-                <option value="Em estoque" <?php echo ($prioridade == 'Em estoque') ? 'selected' : ''; ?>>Em estoque</option>
-                <option value="Sem Estoque" <?php echo ($prioridade == 'Sem estoque') ? 'selected' : ''; ?>>Sem Estoque</option>
-                <option value="Comprado" <?php echo ($prioridade == 'Comprado') ? 'selected' : ''; ?>>Comprado</option>
-                <option value="Entregue" <?php echo ($prioridade == 'Entregue') ? 'selected' : ''; ?>>Entregue</option>
-            </select>
+            <label for="situacao">Situação:</label>
+            <input type="text" name="situacao" value="<?php echo htmlspecialchars($statusEstoque); ?>" readonly>
             <br />
             <button type="submit" name="atualizarTonner">Atualizar</button>
         </form>
