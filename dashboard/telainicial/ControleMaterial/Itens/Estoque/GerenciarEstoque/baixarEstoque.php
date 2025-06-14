@@ -5,11 +5,11 @@ require_once '..\..\..\..\..\..\php\Estoque.php';
 $msg = "";
 session_start();    
 
-// Buscar itens do banco
+
 $itensObj = new Itens();
 $listaItens = $itensObj->listarItens();
 
-// Buscar fornecedores do banco
+
 $fornecedorObj = new Fornecedor();
 $listaFornecedores = $fornecedorObj->listarFornecedores();
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($item) && is_numeric($quantidades[$index]) && $quantidades[$index] > 0) {
         $saldoAtual = $estoque->consultarSaldo($item);
 
-        // Buscar nome do item pelo ID
+
         $nomeItem = '';
         foreach ($listaItens as $itemObj) {
             if ($itemObj['id'] == $item) {

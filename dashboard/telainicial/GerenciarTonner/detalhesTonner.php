@@ -110,7 +110,8 @@ if ($saldoTonner > 0) {
     <?php endif; ?>
     </table>
 <br>
-<a href="atualizarTonner.php?id=<?= urlencode($idAtual) ?>&status=<?= urlencode($detalhesTonner['status']) ?>&statusEstoque=<?= urlencode($statusEstoque)?>">Atualizar</a>
+<a href="atualizarTonner.php?id=<?= urlencode($idAtual) ?>&status=<?= urlencode($detalhesTonner['status']) ?>&statusEstoque=<?= urlencode($statusEstoque) ?>&tonnerId=<?= urlencode($detalhesTonner['tonnerId']) ?>">Atualizar</a>
+
 <br>
 <a href="listarTonner.php">Voltar</a>
 
