@@ -1,16 +1,18 @@
 <?php
 session_start();
 require_once '..\..\..\php\Chamado.php';
+require_once '..\..\..\php\Email.php';
+
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: ..\..\index.php");
+    exit();
 }
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
+    $email = new Email();
     $chamado = new Chamado();
+
     $chamado->setStatus($_POST['status']);
     $chamado->setTituloChamado($_POST['assunto']);
     $chamado->setDescricaoChamado($_POST['descricao']);
@@ -22,17 +24,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novoChamadoId = $chamado->abrirChamado();
 
     if ($novoChamadoId) {
+        // Enviar email só se o chamado foi aberto com sucesso
+        $destinatario = 'joaoogbriel3meia@gmail.com';
+        $assunto = $_POST['assunto'];
+        $mensagem = $_POST['descricao'];
+
+        if ($email->enviarEmail($destinatario, $assunto, $mensagem)) {
+            // Email enviado
+        } else {
+            // Email não enviado, mas não bloqueia o fluxo
+            error_log("Falha ao enviar email para chamado ID: $novoChamadoId");
+        }
 
         header("Location: chamadoAberto.php?chamadoId=" . $novoChamadoId);
         exit();
     } else {
         echo "Erro ao abrir chamado!";
     }
-
 }
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
