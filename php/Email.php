@@ -24,6 +24,7 @@
 
     public function enviarEmail($para, $assunto, $corpoHtml) {
         try {
+            $this->mail->CharSet = 'UTF-8';
             $this->mail->clearAddresses();
             $this->mail->addAddress($para);
             $this->mail->isHTML(true);

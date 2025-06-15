@@ -2,6 +2,7 @@
 session_start();
 require_once '..\..\..\php\Tonner.php';
 require_once '..\..\..\php\Imobilizados.php';
+require_once '..\..\..\php\Email.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: ..\..\..\index.php");
@@ -13,7 +14,7 @@ $impressorasAtivas = $imobilizados->listarImpressorasAtivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tonnerSolicitacao = new Tonner();
-
+    $email = new Email();
     $tonnerSolicitacao->setStatus($_POST['status']);
     $tonnerSolicitacao->setAutorId($_SESSION['usuario_id']);
     $tonnerSolicitacao->setAutorNome($_SESSION['usuario']);
@@ -39,6 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $novoChamadoId = $tonnerSolicitacao->solicitarTonner();
 
         if ($novoChamadoId) {
+            $destinatario = 'joaoogbriel3meia@gmail.com';
+
+            $assunto = "Solicitação de Suprimento: Tonner ID #{$novoChamadoId}";
+
+            $mensagem = "<h2>Nova Solicitação de Tonner</h2>";
+            $mensagem .= "<p><strong>ID da Solicitação:</strong> " . $novoChamadoId . "</p>";
+            $mensagem .= "<p><strong>Solicitante:</strong> " . $_SESSION['usuario'] . " (" . $_SESSION['email_usuario'] . ")</p>";
+            $mensagem .= "<p><strong>Setor:</strong> " . $_SESSION['setor'] . "</p>";
+            $mensagem .= "<p><strong>Status:</strong> Aberto</p>";
+            $mensagem .= "<br><p>Por favor, providenciar a entrega o quanto antes.</p>";
+
+            // Enviar e-mail
+            $email->enviarEmail($destinatario, $assunto, $mensagem);
+
             header("Location: solicitacaoAberta.php?tonnerSolicitacao=" . $novoChamadoId);
             exit();
         } else {
@@ -54,6 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">

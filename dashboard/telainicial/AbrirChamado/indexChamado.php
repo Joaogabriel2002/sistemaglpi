@@ -24,23 +24,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novoChamadoId = $chamado->abrirChamado();
 
     if ($novoChamadoId) {
-        // Enviar email só se o chamado foi aberto com sucesso
-        $destinatario = 'joaoogbriel3meia@gmail.com';
-        $assunto = $_POST['assunto'];
-        $mensagem = $_POST['descricao'];
+    $destinatario = 'joaoogbriel3meia@gmail.com';
+    $assunto = "Novo chamado aberto: " . $_POST['assunto'];
 
-        if ($email->enviarEmail($destinatario, $assunto, $mensagem)) {
-            // Email enviado
-        } else {
-            // Email não enviado, mas não bloqueia o fluxo
-            error_log("Falha ao enviar email para chamado ID: $novoChamadoId");
-        }
+    $mensagem = "<h2>Novo Chamado Aberto</h2>";
+    $mensagem .= "<p><strong>ID do Chamado:</strong> " . $novoChamadoId . "</p>";
+    $mensagem .= "<p><strong>Assunto:</strong> " . $_POST['assunto'] . "</p>";
+    $mensagem .= "<p><strong>Descrição:</strong> " . $_POST['descricao'] . "</p>";
+    $mensagem .= "<p><strong>Aberto por:</strong> " . $_SESSION['usuario'] . " (" . $_SESSION['email_usuario'] . ")</p>";
+    $mensagem .= "<p><strong>Setor:</strong> " . $_SESSION['setor'] . "</p>";
+    $mensagem .= "<p><strong>Status:</strong> Aberto</p>";
 
-        header("Location: chamadoAberto.php?chamadoId=" . $novoChamadoId);
-        exit();
+    if ($email->enviarEmail($destinatario, $assunto, $mensagem)) {
+        // Email enviado
     } else {
-        echo "Erro ao abrir chamado!";
+        error_log("Falha ao enviar email para chamado ID: $novoChamadoId");
     }
+
+    header("Location: chamadoAberto.php?chamadoId=" . $novoChamadoId);
+    exit();
+}
+
 }
 ?>
 
