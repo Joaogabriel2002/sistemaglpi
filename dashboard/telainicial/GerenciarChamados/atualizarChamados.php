@@ -1,46 +1,95 @@
 <?php
 require_once '../../../php/Chamado.php';
+require_once '../../../php/Email.php';
+require_once '../../../php/Usuario.php';
 session_start();
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $chamadoId = $_GET['id'];
+    $chamadoId = (int) $_GET['id'];
 
     $chamado = new Chamado();
     $detalhesChamado = $chamado->listarChamadosporId2($chamadoId);
+
+    if (!$detalhesChamado) {
+        die('Chamado não encontrado.');
+    }
+
     $statusAtual = $detalhesChamado['status'];
     $prioridade = $detalhesChamado['tipoChamado'];
+
+    $usuarioId = $detalhesChamado['autorId'];
+    $usuario = new Usuario();
+    $dadosUsuario = $usuario->listarUsuariosPorId($usuarioId);
+
+    if (!$dadosUsuario) {
+        die('Usuário responsável pelo chamado não encontrado.');
+    }
+
+    $emailUsuario = $dadosUsuario['email'];
 } else {
     die('ID do chamado inválido ou não fornecido.');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Para garantir que o ID do chamado veio no POST e é válido
+    if (!isset($_POST['chamadoId']) || !is_numeric($_POST['chamadoId'])) {
+        die('ID do chamado inválido no formulário.');
+    }
+    $chamadoId = (int) $_POST['chamadoId'];
+
     $chamado = new Chamado();
-    $chamado->setChamadoId($_POST['chamadoId']);
-    $chamadoId = $_POST['chamadoId'];
+    $chamado->setChamadoId($chamadoId);
 
     // Atualizar status, se enviado
     if (!empty($_POST['status'])) {
-        $chamado->setStatus($_POST['status']);
-        $chamado->atualizarStatus($_POST['status'], $chamadoId);
+        $novoStatus = $_POST['status'];
+        $chamado->setStatus($novoStatus);
+        $chamado->atualizarStatus($novoStatus, $chamadoId);
+    } else {
+        $novoStatus = $statusAtual;
     }
 
-    // Atualizar prioridade, se enviado
     if (!empty($_POST['tipoChamado'])) {
-        $chamado->setTipoChamado($_POST['tipoChamado']);
-        $chamado->atualizarPrioridade($_POST['tipoChamado'], $chamadoId);
+        $novaPrioridade = $_POST['tipoChamado'];
+        $chamado->setTipoChamado($novaPrioridade);
+        $chamado->atualizarPrioridade($novaPrioridade, $chamadoId);
+    } else {
+        $novaPrioridade = $prioridade;
     }
 
-    // Adicionar comentário, se enviado
+
+    $comentario = '';
     if (!empty(trim($_POST['comentario']))) {
+        $comentario = trim($_POST['comentario']);
         $chamado->setTecnico($_SESSION['usuario']);
-        $chamado->setComentario($_POST['comentario']);
+        $chamado->setComentario($comentario);
         $chamado->atualizarChamado();
     }
+
+  
+    $email = new Email();
+    $destinatario = $emailUsuario;
+
+    $assunto = "Atualização no seu chamado nº $chamadoId";
+
+    $mensagem = "<h2>Atualização do Chamado Nº $chamadoId</h2>";
+    $mensagem .= "<p><strong>Status:</strong> $novoStatus</p>";
+    $mensagem .= "<p><strong>Prioridade:</strong> $novaPrioridade</p>";
+    if (!empty($comentario)) {
+        $mensagem .= "<p><strong>Comentário do Técnico:</strong> $comentario</p>";
+    }
+    $mensagem .= "<p><strong>Atualizado por:</strong> " . htmlspecialchars($_SESSION['usuario']) . "</p>";
+    $mensagem .= "<p><strong>Data/Hora:</strong> " . date('d/m/Y H:i') . "</p>";
+    $mensagem .= "<br><p>Você pode acompanhar o chamado acessando o sistema de chamados.</p>";
+    $mensagem .= "<p>Atenciosamente,<br>Equipe de T.I. Chesiquímica</p>";
+
+    $email->enviarEmail($destinatario, $assunto, $mensagem);
 
     header("Location: detalhesChamados.php?id=$chamadoId");
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">

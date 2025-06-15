@@ -233,9 +233,9 @@
 
 
         public function listarChamadosporId2($idAtual) {
-            $sql = "SELECT * FROM chamados WHERE chamadoId = :id";
+            $sql = "SELECT * FROM chamados WHERE chamadoId = :autorId";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':id', $idAtual, PDO::PARAM_INT);
+            $stmt->bindParam(':autorId', $idAtual, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna um array associativo ou false se não encontrar
         }
