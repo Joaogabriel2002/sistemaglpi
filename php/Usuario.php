@@ -121,6 +121,11 @@ require_once 'Conexao.php';
         return $stmt->execute([$novaSenha, $id]);
 }
 
-
+        public function listarSetores(){
+            $sql = "SELECT * FROM setores_locais";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 
     }
