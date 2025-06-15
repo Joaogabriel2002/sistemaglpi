@@ -8,6 +8,7 @@ class Itens extends Conexao {
     private $impressoraId;
     private $modeloId;
 
+
     public function setId($id) {
         $this->id = $id;
     }
@@ -51,6 +52,7 @@ class Itens extends Conexao {
     public function getModeloId() {
         return $this->modeloId;
     }
+
 
 
 

@@ -155,7 +155,6 @@ class Tonner extends Conexao {
    
 
     public function solicitarTonner() {
-    // Certifique-se que $this->tonnerId está setado e válido, pois será usado como FK
     $sql = "INSERT INTO tonnerSolicitacao (tonnerId, status, corTonner, autorId, autorNome, autorEmail, autorSetor, impressoraId)
             VALUES (:tonnerId, :status, :corTonner, :autorId, :autorNome, :autorEmail, :autorSetor, :impressoraId)";
     $stmt = $this->conn->prepare($sql);

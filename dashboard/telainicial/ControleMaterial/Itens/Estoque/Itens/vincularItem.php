@@ -22,6 +22,7 @@ $msg = "";
 $modeloTonnerId = isset($_GET['id']) ? $_GET['id'] : '';
 $modeloTonnerNome = isset($_GET['nome']) ? $_GET['nome'] : '';
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $modeloTonner = $_POST['modeloTonner'] ?? '';
     $modeloImpressora = $_POST['modeloImpressora'] ?? '';
