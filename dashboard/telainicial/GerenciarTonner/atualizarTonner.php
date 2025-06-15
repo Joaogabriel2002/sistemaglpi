@@ -1,5 +1,8 @@
 <?php
 require_once '..\..\..\php/Tonner.php';
+require_once '..\..\..\php/Usuario.php';
+require_once '..\..\..\php/Email.php';
+date_default_timezone_set('America/Sao_Paulo');
 
 session_start();
 
@@ -7,7 +10,7 @@ $msg = "";
 
 // Verifica se o ID da solicitação veio e é numérico
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $solicitacaoid = $_GET['id'];
+    $solicitacaoid = (int) $_GET['id'];
 
     $tonner = new Tonner();
     $detalhesTonner = $tonner->listarTonnerPorId($solicitacaoid);
@@ -16,11 +19,26 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         die('ID do toner inválido ou não encontrado.');
     }
 
-    // Status atual e prioridade do banco
+    // Obtém status atual e prioridade com fallback para string vazia
     $statusAtualBanco = $detalhesTonner['status'] ?? '';
     $prioridade = $detalhesTonner['situacao'] ?? '';
 
-    // Pega os valores da URL, se existirem, senão usa o banco
+    // Pega o ID do usuário que abriu o tonner - ajusta o campo conforme seu banco
+    $usuarioId = $detalhesTonner['autorId'] ?? null;
+    if ($usuarioId === null) {
+        die('Usuário responsável pelo toner não encontrado.');
+    }
+
+    $usuario = new Usuario();
+    $dadosUsuario = $usuario->listarUsuariosPorId($usuarioId);
+
+    if (!$dadosUsuario) {
+        die('Dados do usuário responsável pelo toner não encontrados.');
+    }
+
+    $emailUsuario = $dadosUsuario['email'];
+
+    // Valores opcionais via GET (ex: para manter estado ao recarregar)
     $statusEstoque = $_GET['statusEstoque'] ?? $prioridade;
     $tonnerId = $_GET['tonnerId'] ?? ($detalhesTonner['tonnerId'] ?? null);
 
@@ -28,7 +46,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     die('ID do toner inválido ou não fornecido.');
 }
 
-// Se for POST, processa atualização
+// Processa atualização via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['atualizarTonner'])) {
 
@@ -37,28 +55,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tonnerId = $_POST['tonnerId'] ?? null;
         $situacao = $_POST['situacao'] ?? '';
 
-        // Regra de negócio: não fechar se não tem estoque
+        // Validação básica para evitar fechar quando sem estoque
         if ($statusNovo === "Fechado" && $statusEstoque !== "Em estoque") {
             $msg = "❌ Não é possível fechar a solicitação: O item solicitado não possui estoque.";
         } else {
-            // Atualiza o objeto Tonner
+
+            // Definir dados no objeto Tonner com segurança
             $tonner->setSolicitacaoId($solicitacaoid);
             $tonner->setStatus($statusNovo);
             $tonner->setSituacao($situacao);
-            $tonner->setTecnico($_SESSION['usuario'] ?? ''); // segurança
+            $tonner->setTecnico($_SESSION['usuario'] ?? '');
 
+            // Atualiza a solicitação no banco
             $tonner->atualizarSolicitacao($statusNovo, $situacao, $solicitacaoid);
+
+            // Adiciona registro de atualização (log)
             $tonner->adicionarAtualizacao();
 
-            // Se fechou e tem estoque, baixa no estoque
+            // Se status fechado e tem estoque, registra baixa no estoque
             if ($statusNovo === "Fechado" && $statusEstoque === "Em estoque" && $tonnerId) {
                 require_once '..\..\..\php/Estoque.php';
                 $estoque = new Estoque();
-                $estoque->setQuantidade(1); // ajustar se precisar
+                $estoque->setQuantidade(1); // Ajustar quantidade se necessário
                 $estoque->setTipo_Movimentacao("SAIDA");
                 $estoque->setMotivo("Entrega de Suprimento");
                 $estoque->setUsuarioId($_SESSION['usuario_id'] ?? 0);
-                $estoque->setItemId($tonnerId); // descomente se necessário
+                $estoque->setItemId($tonnerId);
 
                 $resultadoBaixa = $estoque->incluirEstoque();
 
@@ -67,7 +89,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // Se não houve erro na baixa ou regra de negócio, redireciona
+            // Enviar email de atualização para quem abriu o tonner
+            $email = new Email();
+            $destinatario = $emailUsuario;
+
+            $assunto = "Atualização na sua solicitação de Tonner nº $solicitacaoid";
+
+            $mensagem = "<h2>Atualização da Solicitação de Tonner Nº $solicitacaoid</h2>";
+            $mensagem .= "<p><strong>Status:</strong> $statusNovo</p>";
+            $mensagem .= "<p><strong>Situação:</strong> $situacao</p>";
+            $mensagem .= "<p><strong>Atualizado por:</strong> " . htmlspecialchars($_SESSION['usuario'] ?? 'Sistema') . "</p>";
+            $mensagem .= "<p><strong>Data/Hora:</strong> " . date('d/m/Y H:i') . "</p>";
+            $mensagem .= "<br><p>Você pode acompanhar a solicitação acessando o sistema.</p>";
+            $mensagem .= "<p>Atenciosamente,<br>Equipe de T.I. Chesiquímica</p>";
+
+            $email->enviarEmail($destinatario, $assunto, $mensagem);
+
+            // Se tudo OK, redireciona para detalhes
             if (empty($msg)) {
                 header("Location: detalhesTonner.php?id=$solicitacaoid");
                 exit;
@@ -76,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">

@@ -2,6 +2,7 @@
 require_once '../../../php/Chamado.php';
 require_once '../../../php/Email.php';
 require_once '../../../php/Usuario.php';
+date_default_timezone_set('America/Sao_Paulo');
 session_start();
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -89,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
