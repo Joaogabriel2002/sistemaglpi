@@ -89,7 +89,7 @@ if (!empty($atualizacoesChamado)) {
                 <th>Data da Atualização</th>
                 <th>Técnico</th>
                 <th>Comentário</th>
-                <th>Ação</th>
+
             </tr>
           </thead>';
     echo '<tbody>';
@@ -100,9 +100,7 @@ if (!empty($atualizacoesChamado)) {
             <td><?= htmlspecialchars($atualizacao['dt_atualizacao']); ?></td>
             <td><?= htmlspecialchars($atualizacao['tecnico']); ?></td>
             <td><?= nl2br(htmlspecialchars($atualizacao['comentario'])); ?></td>
-            <td>
-                <a href="excluirAtualizacao.php?id_atualizacao=<?= $atualizacao['id_atualizacao']; ?>&id_chamado=<?= $chamadoId; ?>&status=<?= urlencode($detalhesChamado['status']); ?>">Excluir</a>
-            </td>
+
         </tr>
         <?php
     }

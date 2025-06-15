@@ -43,7 +43,6 @@ if (!$detalhesTonner) {
         <th>Situação</th>
         <th>Data de Abertura</th>
         <th>Modelo</th>
-        <th>Cor</th>
         <th>Solicitante</th>
         <th>E-mail</th>
         <th>Setor</th>
@@ -55,7 +54,7 @@ if (!$detalhesTonner) {
         <td><?= $detalhesTonner['situacao'] ?></td>
         <td><?= $detalhesTonner['dtAbertura'] ?></td>
         <td><?= $detalhesTonner['nome'] ?></td>
-        <td><?= $detalhesTonner['corTonner'] ?></td>
+
         <td><a href="detalhesUsuario.php?id=<?= $detalhesTonner['autorId'] ?>"><?= $detalhesTonner['autorNome'] ?></a></td>
         <td><?= $detalhesTonner['autorEmail'] ?></td>
         <td><?= $detalhesTonner['autorSetor'] ?></td>
@@ -69,7 +68,6 @@ if (!$detalhesTonner) {
         <th>Data</th>
         <th>Técnico</th>
         <th>Situação</th>
-        <th>Ações</th>
     </tr>
 
     <?php
@@ -80,9 +78,6 @@ if (!$detalhesTonner) {
                 <td><?= $atualizacao['dtAtualizacao'] ?></td>
                 <td><?= $atualizacao['tecnico'] ?></td>
                 <td><?= $atualizacao['situacao'] ?></td>
-                <td>
-                    <a href="excluirAtualizacao2.php?id_atualizacao=<?= $atualizacao['id_atualizacao'] ?>&id_chamado=<?= $solicitacaoId ?>&status=<?= urlencode($detalhesTonner['status']) ?>">Selecionar</a>
-                </td>
             </tr>
             <?php
         }
