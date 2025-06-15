@@ -1,6 +1,6 @@
 body {
     font-family: poppins;
-    background-color: #069e69(0, 0, 0); /* Fundo preto conforme sua alteração */
+    background-color: rgb(180, 175, 175); /* Fundo preto conforme sua alteração */
     display: flex;
     justify-content: center;
     align-items: center;
