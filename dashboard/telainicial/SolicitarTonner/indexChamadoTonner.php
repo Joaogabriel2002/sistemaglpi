@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $novoChamadoId = $tonnerSolicitacao->solicitarTonner();
 
         if ($novoChamadoId) {
-            $destinatario = 'joaoogbriel3meia@gmail.com';
+            $destinatario = 'ti@chesiquimica.com.br';
 
             $assunto = "Solicitação de Suprimento: Tonner ID #{$novoChamadoId}";
 

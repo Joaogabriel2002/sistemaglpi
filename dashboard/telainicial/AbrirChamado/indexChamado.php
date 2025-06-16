@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novoChamadoId = $chamado->abrirChamado();
 
     if ($novoChamadoId) {
-    $destinatario = 'joaoogbriel3meia@gmail.com';
+    $destinatario = 'ti@chesiquimica.com.br';
     $assunto = "Novo chamado aberto: " . $_POST['assunto'];
 
     $mensagem = "<h2>Novo Chamado Aberto</h2>";
