@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastro - ChesiQuímica</title>
     <script src="scriptEstoque.js"></script>
-    <link rel="stylesheet" href="../../../../../css/incluirEstoque.css" />
+    <link rel="stylesheet" href="/sistemaglpi/css/incluirEstoque.css" />
 </head>
 
 <body>
@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                         <option value=""></option>
                         <option value="Aparelhos de Redes">Aparelhos de Redes</option>
                         <option value="Computador">Computador</option>
+                        <option value="Monitor">Monitor</option>
                         <option value="Impressora">Impressora</option>
                         <option value="Notebook">Notebook</option>
                         <option value="Outros">Outros</option>

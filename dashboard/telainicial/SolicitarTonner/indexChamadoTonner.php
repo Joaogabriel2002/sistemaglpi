@@ -80,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="indexChamadoTonner.js" defer></script>
     <title>Solicitar Tonner</title>
     <link rel="icon" href="../../../img/chesiquimica-logo-png.png" type="image/png" />
-    <link rel="stylesheet" href="../../../css/base.css" />
-    <link rel="stylesheet" href="../../../css/tonner.css" />
+    <link rel="stylesheet" href="/sistemaglpi/css/base.css" />
+    <link rel="stylesheet" href="/sistemaglpi/css/tonner.css" />
 </head>
 
 <body>
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <div class="left-section">
         <img src="../../../img/chesiquimica-logo-png.png" class="brand-logo" alt="Logo Chesiquímica" />
-        <img src="../../../img/chesiquimica-letreiro-png.png" class="brand-name" alt="Logo Chesiquímica" />
+        
     </div>
 
     <div class="right-section">

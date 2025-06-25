@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - ChesiQuímica</title>
-    <link rel="stylesheet" href="..\..\..\..\..\..\css/incluirEstoque.css">
+    <link rel="stylesheet" href="/sistemaglpi/css/incluirEstoque.css">
     <link rel="icon" href="../img/chesiquimica-logo-png.png" type="image/png">
 </head>
 

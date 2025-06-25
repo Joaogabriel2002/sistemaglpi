@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Abrir um Chamado</title>
     <link rel="icon" href="../../../img/chesiquimica-logo-png.png" type="image/png">
     
-    <link rel="stylesheet" href="../../../css/listarChamados.css">
-    <link rel="stylesheet" href="../../../css/base.css">
+    <link rel="stylesheet" href="/sistemaglpi/css/listarChamados.css">
+    <link rel="stylesheet" href="/sistemaglpi/css/base.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600&display=swap"
         rel="stylesheet">
 
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <div class="left-section">
             <img src="../../../img/chesiquimica-logo-png.png" alt="Logo Chesiquimica" class="brand-logo">
-            <img src="../../../img/chesiquimica-letreiro-png.png" alt="Chesiquimica" class="brand-name">
+          
         </div>
         <div class="right-section">
             <form action="indexChamado.php" method="POST">

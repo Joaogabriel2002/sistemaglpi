@@ -31,7 +31,7 @@ if(empty($idFiltro)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Chamados</title>
     <link rel="icon" href="../../img/chesiquimica-logo-png.png" type="image/png">
-    <link rel="stylesheet" href="..\..\..\css/listagem.css">
+    <link rel="stylesheet" href="/sistemaglpi/css/listagem.css">
 </head>
 <body>
 

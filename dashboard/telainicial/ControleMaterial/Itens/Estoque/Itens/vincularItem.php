@@ -52,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Solicitar Tonner</title>
     <link rel="icon" href="../../../img/chesiquimica-logo-png.png" type="image/png" />
-    <link rel="stylesheet" href="../../../../../../css/base.css" />
-    <link rel="stylesheet" href="../../../../../../css/tonner.css" />
+    <link rel="stylesheet" href="/sistemaglpi/css/base.css" />
+    <link rel="stylesheet" href="/sistemaglpi/css/tonner.css" />
 </head>
 
 <body>

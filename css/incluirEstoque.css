@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #000;
+    background-color: rgb(180, 175, 175);
     display: flex;
     justify-content: center;
     align-items: start;

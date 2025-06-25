@@ -51,7 +51,7 @@ if ($saldoTonner > 0) {
     <meta charset="UTF-8">
     <title>Detalhes do Chamado</title>
     <link rel="icon" href="../img/chesiquimica-logo-png.png" type="image/png">
-    <link rel="stylesheet" href="/gerenciadorti/css/detalhesTonner.css">
+    <link rel="stylesheet" href="/sistemaglpi/css/detalhesTonner.css">
 </head>
 <body>
 

@@ -20,7 +20,7 @@ $movimentacoes = $movimentacao->listarMovimentacoes();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estoque Atual</title>
     <link rel="icon" href="../../img/chesiquimica-logo-png.png" type="image/png">
-    <link rel="stylesheet" href="/gerenciadorti/css/listaUsuarios.css">
+    <link rel="stylesheet" href="/sistemaglpi/css/listaUsuarios.css">
 </head>
 <body>
     <h1>Movimentações Gerais:</h1>

@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastro - ChesiQuímica</title>
     <script src="scriptEstoque.js"></script>
-    <link rel="stylesheet" href="../../../../../css/incluirEstoque.css" />
+    <link rel="stylesheet" href="/sistemaglpi/css/incluirEstoque.css" />
 </head>
 
 <body>
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
                 </div><br>
                 <div class="campo-form">
                 <label for="setor">Usuario(se houver):</label>
-                <select id="usuario" name="usuario" required>
+                <select id="usuario" name="usuario" >
                     <option value=""></option>
                     <?php foreach ($usuarios as $user): ?>
                         <option value="<?= htmlspecialchars($user['id']) ?>">
